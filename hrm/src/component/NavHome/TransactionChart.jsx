@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 const data = [
@@ -64,11 +64,11 @@ const data = [
 	}
 ]
 
-export default function TransactionChart() {
+const TransactionChart=()=> {
 	return (
-		<div className="h-[35rem] w-[59.5rem] bg-white p-4 rounded-2xl border border-gray-200 flex flex-col flex-1">
+		<div className="h-full w-full bg-white p-4 rounded-2xl border border-gray-200 flex flex-col flex-1">
 			<strong className="text-gray-700 font-medium">Transactions</strong>
-			<div className="mt-3 w-full flex-1 text-xs">
+			<div className="mt-3 w-full h-full flex-1 text-xs">
 				<ResponsiveContainer width="100%" height="100%">
 					<BarChart
 						width={500}
@@ -94,3 +94,5 @@ export default function TransactionChart() {
 		</div>
 	)
 }
+export default TransactionChart
+

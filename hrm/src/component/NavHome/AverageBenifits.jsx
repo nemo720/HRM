@@ -1,4 +1,4 @@
-export const Alert = () => {
+export const AverageBenifits = () => {
     return (
       <div className="w-full h-full bg-gray-500 flex-col ">
         {/* <div className="w-full h-1/6 relative bg-blue-300">
@@ -18,7 +18,7 @@ export const Alert = () => {
           <div className="h-3/5 w-1/3 bg-red-400 m-4 "></div>
         </div>
         <div className="w-full h-1/2 bg-green-400"></div> */}
-        <span className="w-full h-full"> Alert</span>
+        <span className="w-full h-full"> Average Benifits</span>
       </div>
     );
   };

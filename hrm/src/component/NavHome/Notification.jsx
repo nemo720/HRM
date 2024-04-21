@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React from 'react'
+
 import { Link } from 'react-router-dom'
 
 const notification = [
@@ -47,9 +47,9 @@ const notification = [
 	}
 ]
 
-function ShowNotifications() {
+const Notification = () => {
 	return (
-		<div className="w-[20rem] bg-white p-4 rounded-2xl border border-gray-200">
+		<div className="w-auto h-auto bg-white p-4 rounded-lg border border-gray-200">
 			<strong className="text-gray-700 font-medium">Notifications</strong>
 			<div className="mt-4 flex flex-col gap-3">
 				{notification.map((product) => (
@@ -88,4 +88,4 @@ function ShowNotifications() {
 	)
 }
 
-export default ShowNotifications
+export default Notification
