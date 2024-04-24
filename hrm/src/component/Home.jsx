@@ -2,25 +2,7 @@ import { Landmark, CalendarCheck, CircleDollarSign } from "lucide-react";
 import Notification from "./NavHome/Notification";
 import TransactionChart from "./NavHome/TransactionChart";
 import { Link } from "react-router-dom";
-// import  ItemOfHome  from "./NavHome/ItemOfHome";
-// import { IoBagHandle, IoPieChart, IoPeople } from 'react-icons/io5'
-// const homeContent = [
-//   {
-//     title: "Total earning",
-//     href: "/totalEarning",
-//     icon: <Landmark />,
-//   },
-//   {
-//     title: "Total number of vacation days",
-//     href: "/totalNumberOfVacationDay",
-//     icon: <CalendarCheck />,
-//   },
-//   {
-//     title: "Average benifits",
-//     href: "/averageBenifits",
-//     icon: <CircleDollarSign />,
-//   },
-// ];
+
 const hrefHome =['/totalEarning','/totalNumberOfVacationDay','/averageBenifits']
 export const Home = () => {
   return (

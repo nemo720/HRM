@@ -4,9 +4,10 @@ import {Home}  from "./Home";
 import { Employee } from "./Employee";
 import { Alert } from "./Alert";
 import { Routes, Route } from "react-router-dom";
-import { TotalEarning } from "./NavHome/TotalEarning";
-import { TotalNumberOfVacationDay } from "./NavHome/TotalNumberOfVacationDay";
-import { AverageBenifits } from "./NavHome/AverageBenifits";
+import {TotalEarnings} from "@/component/NavHome/DetailData/TotalEarnings.jsx";
+import {VacationDays} from "@/component/NavHome/DetailData/VacationDays.jsx";
+import {AverageBenefits} from "@/component/NavHome/DetailData/AverageBenefits.jsx";
+
 const navHead = [
   {
     title: "ADMIN",
@@ -36,13 +37,14 @@ export const NavBody = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/employee" element={<Employee />} />
-        <Route path="/alert" element={<Alert />} />
-        <Route path="/totalEarning" element={<TotalEarning />}></Route>
+        <Route path="/alerts" element={<Alert />} />
+
+        <Route path="/totalEarning" element={<TotalEarnings />}></Route>
         <Route
           path="/totalNumberOfVacationDay"
-          element={<TotalNumberOfVacationDay />}
+          element={<VacationDays />}
         ></Route>
-        <Route path="/averageBenifits" element={<AverageBenifits />}></Route>
+        <Route path="/averageBenifits" element={<AverageBenefits />}></Route>
       </Routes>
     </div>
   );

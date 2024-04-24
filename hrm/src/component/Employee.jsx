@@ -1,4 +1,4 @@
-import TanStackTable from "./NavEmployee/TanStackTable.jsx";
+import TableEmployee from "./NavEmployee/TableEmployee.jsx";
 
 export const Employee = () => {
     return (
@@ -11,7 +11,7 @@ export const Employee = () => {
                       </h1>
                   </div>
               </div>
-        <TanStackTable />
+        <TableEmployee />
           </div>
       </div>
     );

@@ -22,7 +22,7 @@ const navContent = [
   },
   {
     title: "Alert",
-    href: "/alert",
+    href: "/alerts",
     icon: <BellRing />,
   },
 ];

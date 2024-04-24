@@ -6,49 +6,35 @@ import {
     getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import {USERS} from "@/data.js";
+import {USERS} from "@/services/dataEmployee.js";
 import { useState } from "react";
-import DebouncedInput from "./DebouncedInput.jsx";
-import {SearchIcon} from "../Icons.jsx";
+import DebouncedInput from "@/component/NavEmployee/DebouncedInput.jsx";
+import {SearchIcon} from "@/component/Icons.jsx";
 
-const TanStackTable = () => {
+const TableVacationDays = () => {
     const columnHelper = createColumnHelper();
 
     const columns = [
         columnHelper.accessor("", {
-            id: "S.No",
+            id: "Employee ID",
             cell: (info) => <span>{info.row.index + 1}</span>,
-            header: "S.No",
+            header: "Employee ID",
         }),
-        columnHelper.accessor("profile", {
-            cell: (info) => (
-                <img
-                    src={info?.getValue()}
-                    alt="..."
-                    className="rounded-full w-10 h-10 object-cover"
-                />
-            ),
-            header: "Profile",
-        }),
-        columnHelper.accessor("firstName", {
+        columnHelper.accessor("EmployeeName", {
             cell: (info) => <span>{info.getValue()}</span>,
-            header: "First Name",
+            header: "Employee",
         }),
-        columnHelper.accessor("lastName", {
+        columnHelper.accessor("Gender", {
             cell: (info) => <span>{info.getValue()}</span>,
-            header: "Last Name",
+            header: "Gender",
         }),
-        columnHelper.accessor("age", {
+        columnHelper.accessor("DaysWorking", {
             cell: (info) => <span>{info.getValue()}</span>,
-            header: "Age",
+            header: "Days working in this month",
         }),
-        columnHelper.accessor("visits", {
+        columnHelper.accessor("DaysRest", {
             cell: (info) => <span>{info.getValue()}</span>,
-            header: "Visits",
-        }),
-        columnHelper.accessor("progress", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Progress",
+            header: "Days rest",
         }),
     ];
     const [data] = useState(() => [...USERS]);
@@ -60,13 +46,18 @@ const TanStackTable = () => {
         state: {
             globalFilter,
         },
+        initialState: {
+            pagination: {
+                pageSize: 5,
+            },
+        },
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
     });
 
     return (
-        <div className="p-1 max-w-6xl mx-auto text-white fill-gray-700">
+        <div className="p-1 max-w-5xl mx-auto text-white fill-gray-700">
             <div className="flex justify-between mb-2">
                 <div className="w-full flex items-center gap-1">
                     <SearchIcon />
@@ -163,7 +154,7 @@ const TanStackTable = () => {
                     }}
                     className="p-2 bg-gray-400"
                 >
-                    {[5, 6, 7, 8].map((pageSize) => (
+                    {[5, 7].map((pageSize) => (
                         <option key={pageSize} value={pageSize}>
                             Show {pageSize}
                         </option>
@@ -174,4 +165,4 @@ const TanStackTable = () => {
     );
 };
 
-export default TanStackTable;
+export default TableVacationDays;
