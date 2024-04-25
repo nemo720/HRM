@@ -49,20 +49,20 @@ const TableTotalEarnings = () => {
     });
 
     return (
-        <div className="p-1 max-w-5xl mx-auto text-white fill-gray-700">
+        <div className="p-1 max-w-5xl mx-auto text-black fill-black-700">
             <div className="flex justify-between mb-2">
                 <div className="w-full flex items-center gap-1">
                     <SearchIcon />
                     <DebouncedInput
                         value={globalFilter ?? ""}
                         onChange={(value) => setGlobalFilter(String(value))}
-                        className="pl-2 bg-neutral-300 text-gray-800 outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-indigo-500"
+                        className="pl-2 bg-transparent text-gray-800 outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-indigo-500"
                         placeholder="Search all columns..."
                     />
                 </div>
             </div>
-            <table className="border border-gray-700 w-full text-left">
-                <thead className="bg-neutral-600">
+            <table className="border border-gray-700 w-full text-center">
+                <thead className="bg-gray-400">
                 {table.getHeaderGroups().map((headerGroup) => (
                     <tr key={headerGroup.id}>
                         {headerGroup.headers.map((header) => (
@@ -82,7 +82,7 @@ const TableTotalEarnings = () => {
                         <tr
                             key={row.id}
                             className={`
-                ${i % 2 === 0 ? "bg-gray-500" : "bg-gray-400"}
+                ${i % 2 === 0 ? "bg-gray-50" : "bg-gray-200"}
                 `}
                         >
                             {row.getVisibleCells().map((cell) => (
@@ -100,13 +100,13 @@ const TableTotalEarnings = () => {
                 </tbody>
             </table>
             {/* pagination */}
-            <div className="flex items-center justify-end mt-2 gap-2">
+            <div className="flex items-center justify-end mt-5 gap-2">
                 <button
                     onClick={() => {
                         table.previousPage();
                     }}
                     disabled={!table.getCanPreviousPage()}
-                    className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+                    className="p-1 rounded border border-black px-2 disabled:opacity-30"
                 >
                     {"<"}
                 </button>
@@ -115,12 +115,12 @@ const TableTotalEarnings = () => {
                         table.nextPage();
                     }}
                     disabled={!table.getCanNextPage()}
-                    className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+                    className="p-1 rounded border border-black px-2 disabled:opacity-30"
                 >
                     {">"}
                 </button>
 
-                <span className="flex items-center gap-1">
+                <span className="flex items-center text-black gap-1">
           <div>Page</div>
           <strong>
             {table.getState().pagination.pageIndex + 1} of{" "}
@@ -144,7 +144,7 @@ const TableTotalEarnings = () => {
                     onChange={(e) => {
                         table.setPageSize(Number(e.target.value));
                     }}
-                    className="p-2 bg-gray-400"
+                    className="border border-gray-300 p-2 rounded bg-transparent"
                 >
                     {[5, 7].map((pageSize) => (
                         <option key={pageSize} value={pageSize}>
