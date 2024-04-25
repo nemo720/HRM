@@ -34,7 +34,7 @@ export const Home = () => {
 					<Landmark className="text-2xl text-white" />
 				</div>
 				<div className="pl-5">
-					<span className="text-sm text-gray-500 font-semibold">Total Sales</span>
+					<span className="text-sm text-gray-500 font-semibold">Total earnings</span>
 					<div className="flex items-center">
 						<strong className="text-xl text-gray-700 font-semibold">$54232</strong>
 						<span className="text-sm text-green-500 pl-2">+343</span>
@@ -46,7 +46,7 @@ export const Home = () => {
 					<CalendarCheck className="text-2xl text-white" />
 				</div>
 				<div className="pl-5">
-					<span className="text-sm text-gray-500 font-semibold">Total Expenses</span>
+					<span className="text-sm text-gray-500 font-semibold">Total number of vacation days</span>
 					<div className="flex items-center">
 						<strong className="text-xl text-gray-700 font-semibold">$3423</strong>
 						<span className="text-sm text-green-500 pl-2">-343</span>
@@ -58,7 +58,7 @@ export const Home = () => {
 					<CircleDollarSign className="text-2xl text-white" />
 				</div>
 				<div className="pl-5">
-					<span className="text-sm text-gray-500 font-semibold">Total Customers</span>
+					<span className="text-sm text-gray-500 font-semibold">Average benifits</span>
 					<div className="flex items-center">
 						<strong className="text-xl text-gray-700 font-semibold">12313</strong>
 						<span className="text-sm text-red-500 pl-2">-30</span>
@@ -79,5 +79,9 @@ export const Home = () => {
   );
 };
 function BoxWrapper({ children,href }) {
-	return <Link to = {href} className="bg-white rounded-2xl p-4 flex-1 border border-gray-200 flex items-center w-1/3 h-2/3 shadow-md shadow-gray-400">{children}</Link>
+	return <Link to = {href} 
+	className="bg-white rounded-2xl p-4 flex-1 border border-gray-200 flex items-center w-1/3 h-2/3 shadow-md shadow-gray-400
+	transition ease-in-out delay-400 hover:border-2 hover:translate-y-1 hover:scale-105 hover:border-blue-300 active:ring-1 hover:bg-green-50">
+	{children}
+	</Link>
 }
