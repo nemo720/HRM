@@ -3,7 +3,7 @@ import Notification from "./NavHome/Notification";
 import TransactionChart from "./NavHome/TransactionChart";
 import { Link } from "react-router-dom";
 
-const hrefHome =['/totalEarning','/totalNumberOfVacationDay','/averageBenifits']
+const hrefHome =['/totalEarning','/totalNumberOfVacationDay','/averageBenefits']
 export const Home = () => {
   return (
     <div className="w-full h-full bg-gray-50 flex-col ">
@@ -58,7 +58,7 @@ export const Home = () => {
 					<CircleDollarSign className="text-2xl text-white" />
 				</div>
 				<div className="pl-5">
-					<span className="text-sm text-gray-500 font-semibold">Average benifits</span>
+					<span className="text-sm text-gray-500 font-semibold">Average benefits</span>
 					<div className="flex items-center">
 						<strong className="text-xl text-gray-700 font-semibold">12313</strong>
 						<span className="text-sm text-red-500 pl-2">-30</span>

@@ -5,45 +5,43 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
+  getSortedRowModel,
 } from "@tanstack/react-table";
-import { USERS } from "@/services/dataEmployee.js";
-import { useState } from "react";
+import mockData from "./data.json"
 import DebouncedInput from "./DebouncedInput.jsx";
 import { SearchIcon } from "../Icons.jsx";
+import  {useState} from "react";
 
 const TableEmployee = () => {
   const columnHelper = createColumnHelper();
 
   const columns = [
-    columnHelper.accessor("", {
-      id: "Employee ID",
-      cell: (info) => <span>{info.row.index + 1}</span>,
-      header: "Employee ID",
+    columnHelper.accessor('id', {
+      cell: info => info.getValue(),
     }),
-    columnHelper.accessor("EmployeeName", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Employee",
+    columnHelper.accessor('name', {
+      cell: info => info.getValue(),
     }),
-    columnHelper.accessor("Gender", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Gender",
+    columnHelper.accessor(row => row.email, {
+      id: 'email',
+      cell: info => <i>{info.getValue()}</i>,
+      header: () => <span>Email</span>,
     }),
-    columnHelper.accessor("DaysWorking", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Days working in this month",
-    }),
-    columnHelper.accessor("DaysRest", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Days rest",
-    }),
-  ];
-  const [data] = useState(() => [...USERS]);
+    columnHelper.accessor('phone', {
+      header: () => 'Phone',
+      cell: info => info.renderValue(),
+    })
+  ]
+  const [data] = useState(() => [...mockData]);
+
   const [globalFilter, setGlobalFilter] = useState("");
+  const [sorting, setSorting] = useState([]);
 
   const table = useReactTable({
     data,
     columns,
     state: {
+      sorting,
       globalFilter,
     },
     initialState: {
@@ -53,6 +51,8 @@ const TableEmployee = () => {
     },
     getFilteredRowModel: getFilteredRowModel(),
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
 
@@ -72,12 +72,27 @@ const TableEmployee = () => {
       <table className="border border-gray-700 w-full text-left">
         <thead className="bg-neutral-400">
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr key={headerGroup.id} >
               {headerGroup.headers.map((header) => (
                 <th key={header.id} className="capitalize px-3.5 py-2">
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
+                  {header.isPlaceholder ? null : (
+                      <div
+                          {...{
+                            className: header.column.getCanSort()
+                                ? 'cursor-pointer select-none flex min-w-[36px]'
+                                : '',
+                            onClick: header.column.getToggleSortingHandler(),
+                          }}
+                      >
+                        {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                        )}
+                        {{
+                          asc: <span className="pl-2">↑</span>,
+                          desc: <span className="pl-2">↓</span>,
+                        }[header.column.getIsSorted() ] ?? null}
+                      </div>
                   )}
                 </th>
               ))}

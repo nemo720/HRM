@@ -44,7 +44,7 @@ export const NavBody = () => {
           path="/totalNumberOfVacationDay"
           element={<VacationDays />}
         ></Route>
-        <Route path="/averageBenifits" element={<AverageBenefits />}></Route>
+        <Route path="/averageBenefits" element={<AverageBenefits />}></Route>
       </Routes>
     </div>
   );
