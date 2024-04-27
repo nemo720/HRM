@@ -2,6 +2,7 @@ import { Landmark, CalendarCheck, CircleDollarSign } from "lucide-react";
 import Notification from "./NavHome/Notification";
 import TransactionChart from "./NavHome/TransactionChart";
 import { Link } from "react-router-dom";
+import PersonFilterButtons from "@/component/NavHome/PersonFilterButtons.jsx";
 
 const hrefHome =['/totalEarning','/totalNumberOfVacationDay','/averageBenefits']
 export const Home = () => {
@@ -14,12 +15,7 @@ export const Home = () => {
           </h1>
         </div>
         <div className="absolute h-1/6 flex right-4 space-x-2  items-center  ">
-          <button className="w-[106px] h-[35px] border-[2px] bg-slate-100 border-blue-400 rounded shadow-md shadow-gray-500 focus:bg-blue-400 ">
-            Employee
-          </button>
-          <button className="w-[106px] h-[35px] border-[2px] bg-slate-100  border-blue-400 rounded shadow-md shadow-gray-500 focus:bg-blue-400">
-            Shareholder
-          </button>
+			<PersonFilterButtons />
         </div>
       </div>
       <div className="w-full h-1/3 flex   ">
