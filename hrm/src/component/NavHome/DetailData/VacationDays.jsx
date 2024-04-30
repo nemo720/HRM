@@ -1,5 +1,4 @@
-import TableVacationDays from "./TableVacationDays.jsx";
-
+import TableVacationDays from "@/component/NavHome/DetailData/TableVacationDays.jsx";
 export const VacationDays = () => {
     return (
         <div className="w-full h-full bg-gray-400 flex ">

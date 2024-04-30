@@ -7,32 +7,68 @@ import {
   useReactTable,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import mockData from "./data.json"
 import DebouncedInput from "./DebouncedInput.jsx";
 import { SearchIcon } from "../Icons.jsx";
-import  {useState} from "react";
+import {useEffect, useState} from "react";
+import {listEmployees} from "@/services/EmployeeService.js";
 
 const TableEmployee = () => {
-  const columnHelper = createColumnHelper();
+  const [idDelete, setIdDelete] = useState(0);
+  const [nameDelete, setNameDelete] = useState("");
 
+  const columnHelper = createColumnHelper();
+  const handleIdNameDelete = (item) => {
+    setIdDelete(item.id);
+    setNameDelete(item.firstName);
+  };
+  const handleDelete = async (id) => {
+    // try {
+    //   await axios.delete("http://localhost:8080/api/employee/" + id);
+    //   toast("xóa thành công", {
+    //     position: "top-center",
+    //     autoClose: 2000,
+    //   });
+    //   findAll();
+    // } catch (e) {
+    //   console.log(e);
+    // }
+  };
   const columns = [
     columnHelper.accessor('id', {
-      cell: info => info.getValue(),
-    }),
-    columnHelper.accessor('name', {
-      cell: info => info.getValue(),
-    }),
-    columnHelper.accessor(row => row.email, {
-      id: 'email',
+      id: 'id',
+      header: () => <span>id Employee</span>,
       cell: info => <i>{info.getValue()}</i>,
-      header: () => <span>Email</span>,
     }),
-    columnHelper.accessor('phone', {
-      header: () => 'Phone',
-      cell: info => info.renderValue(),
+    columnHelper.accessor('firstName', {
+      firstName: 'firstName',
+      cell: info => <p>{info.getValue()}</p>,
+      header: () => <span>First Name</span>
+    }),
+    columnHelper.accessor('lastName', {
+      cell: info => <b>{info.getValue()}</b>,
+      header: () => <span>lastName</span>
+    }),
+    columnHelper.accessor('...', {
+      cell: info => <button
+          type="button"
+          className="btn btn-danger bg-red-500"
+          onClick={() => handleIdNameDelete(info.getValue())}
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+      >
+        delete
+      </button>,
     })
   ]
-  const [data] = useState(() => [...mockData]);
+  const [data, setData] = useState(() => []);
+  useEffect(() => {
+    listEmployees().then((response) => {
+      console.log(response.data); // Thêm dòng này
+      setData(response.data);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }, []);
 
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
@@ -71,74 +107,118 @@ const TableEmployee = () => {
       </div>
       <table className="border border-gray-700 w-full text-left">
         <thead className="bg-neutral-400">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} >
+        {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} className="capitalize px-3.5 py-2">
-                  {header.isPlaceholder ? null : (
-                      <div
-                          {...{
-                            className: header.column.getCanSort()
-                                ? 'cursor-pointer select-none flex min-w-[36px]'
-                                : '',
-                            onClick: header.column.getToggleSortingHandler(),
-                          }}
-                      >
-                        {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                        )}
-                        {{
-                          asc: <span className="pl-2">↑</span>,
-                          desc: <span className="pl-2">↓</span>,
-                        }[header.column.getIsSorted() ] ?? null}
-                      </div>
-                  )}
-                </th>
+                  <th key={header.id} className="capitalize px-3.5 py-2">
+                    {header.isPlaceholder ? null : (
+                        <div
+                            {...{
+                              className: header.column.getCanSort()
+                                  ? 'cursor-pointer select-none flex min-w-[36px]'
+                                  : '',
+                              onClick: header.column.getToggleSortingHandler(),
+                            }}
+                        >
+                          {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                          )}
+                          {{
+                            asc: <span className="pl-2">↑</span>,
+                            desc: <span className="pl-2">↓</span>,
+                          }[header.column.getIsSorted()] ?? null}
+                        </div>
+                    )}
+                  </th>
               ))}
             </tr>
-          ))}
+        ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.length ? (
+        {table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row, i) => (
-              <tr
-                key={row.id}
-                className={`
+                <tr
+                    key={row.id}
+                    className={`
                 ${i % 2 === 0 ? "bg-white" : "bg-gray-200"}
                 `}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-3.5 py-2">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
+                >
+                  {row.getVisibleCells().map((cell) => (
+                      <td key={cell.id} className="px-3.5 py-2">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                  ))}
+                </tr>
             ))
-          ) : (
+        ) : (
             <tr className="text-center h-32">
               <td colSpan={12}>No Record Found!</td>
             </tr>
-          )}
+        )}
         </tbody>
+        <div
+            className="modal fade"
+            id="exampleModal"
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Xác nhận xóa nhân viên
+                </h5>
+                <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body">
+                Bạn có chắc chắn muốn xóa nhân viên{" "}
+                <span style={{color: "red"}}>{nameDelete}</span>
+              </div>
+              <div className="modal-footer">
+                <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    onClick={() => handleDelete(idDelete)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </table>
       {/* pagination */}
       <div className="flex items-center justify-end mt-2 gap-2">
         <button
-          onClick={() => {
-            table.previousPage();
-          }}
-          disabled={!table.getCanPreviousPage()}
-          className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+            onClick={() => {
+              table.previousPage();
+            }}
+            disabled={!table.getCanPreviousPage()}
+            className="p-1 border border-gray-300 px-2 disabled:opacity-30"
         >
           {"<"}
         </button>
         <button
-          onClick={() => {
-            table.nextPage();
-          }}
-          disabled={!table.getCanNextPage()}
-          className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+            onClick={() => {
+              table.nextPage();
+            }}
+            disabled={!table.getCanNextPage()}
+            className="p-1 border border-gray-300 px-2 disabled:opacity-30"
         >
           {">"}
         </button>
@@ -153,24 +233,24 @@ const TableEmployee = () => {
         <span className="flex items-center gap-1">
           | Go to page:
           <input
-            type="number"
-            defaultValue={table.getState().pagination.pageIndex + 1}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              table.setPageIndex(page);
-            }}
-            className="border p-1 rounded w-16 bg-transparent"
+              type="number"
+              defaultValue={table.getState().pagination.pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                table.setPageIndex(page);
+              }}
+              className="border p-1 rounded w-16 bg-transparent"
           />
         </span>
         <select
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(Number(e.target.value));
-          }}
-          className="p-2 bg-gray-200"
+            value={table.getState().pagination.pageSize}
+            onChange={(e) => {
+              table.setPageSize(Number(e.target.value));
+            }}
+            className="p-2 bg-gray-200"
         >
-          {[5, 7].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
+          {[3, 5].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
               Show {pageSize}
             </option>
           ))}

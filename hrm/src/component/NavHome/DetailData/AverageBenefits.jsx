@@ -1,5 +1,4 @@
-import TableBenefits from "./TableBenefits.jsx";
-
+import TableBenefits from "@/component/NavHome/DetailData/TableBenefits.jsx";
 export const AverageBenefits = () => {
     return (
         <div className="w-full h-full bg-gray-400 flex ">

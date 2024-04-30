@@ -1,5 +1,4 @@
-import TableTotalEarnings from "./TableTotalEarnings.jsx";
-
+import TableTotalEarnings from "@/component/NavHome/DetailData/TableTotalEarnings.jsx";
 export const TotalEarnings = () => {
     return (
         <div className="w-full h-full bg-gray-400 flex ">
