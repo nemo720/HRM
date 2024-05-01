@@ -16,6 +16,7 @@ const TableEmployee = () => {
   const [idDelete, setIdDelete] = useState(0);
   const [nameDelete, setNameDelete] = useState("");
 
+
   const columnHelper = createColumnHelper();
   const handleIdNameDelete = (item) => {
     setIdDelete(item.id);
@@ -36,17 +37,39 @@ const TableEmployee = () => {
   const columns = [
     columnHelper.accessor('id', {
       id: 'id',
-      header: () => <span>id Employee</span>,
-      cell: info => <i>{info.getValue()}</i>,
+      header: () => <span>Employee ID</span>,
+      cell: info => <p>{info.getValue()}</p>,
     }),
     columnHelper.accessor('firstName', {
-      firstName: 'firstName',
       cell: info => <p>{info.getValue()}</p>,
       header: () => <span>First Name</span>
     }),
     columnHelper.accessor('lastName', {
-      cell: info => <b>{info.getValue()}</b>,
-      header: () => <span>lastName</span>
+      cell: info => <p>{info.getValue()}</p>,
+      header: () => <span>Last Name</span>
+    }),
+    columnHelper.accessor('email', {
+      cell: info => <p>{info.getValue()}</p>,
+      header: () => <span>Email</span>
+    }),
+    columnHelper.accessor('daysWorkingPerMonth', {
+      cell: info => <p>{info.getValue()}</p>,
+      header: () => <span>Days Working in month</span>
+    }),
+    columnHelper.accessor('vacationDays', {
+      cell: info => <p>{info.getValue()}</p>,
+      header: () => <span>Days Rest</span>
+    }),
+    columnHelper.accessor(' ', {
+      cell: info => <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => handleIdNameDelete(info.getValue())}
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+      >
+        update
+      </button>,
     }),
     columnHelper.accessor(' ', {
       cell: info => <button
@@ -168,7 +191,7 @@ const TableEmployee = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">
-                  Xác nhận xóa nhân viên
+                  Confirm employee deletion
                 </h5>
                 <button
                     type="button"
@@ -178,8 +201,7 @@ const TableEmployee = () => {
                 ></button>
               </div>
               <div className="modal-body">
-                Bạn có chắc chắn muốn xóa nhân viên{" "}
-                <span style={{color: "red"}}>{nameDelete}</span>
+                Do you want to delete this employee?
               </div>
               <div className="modal-footer">
                 <button
@@ -249,7 +271,7 @@ const TableEmployee = () => {
             }}
             className="p-2 bg-gray-200"
         >
-          {[3, 5].map((pageSize) => (
+          {[3, 5, 7].map((pageSize) => (
               <option key={pageSize} value={pageSize}>
               Show {pageSize}
             </option>

@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import {TotalEarnings} from "@/component/NavHome/DetailData/TotalEarnings.jsx";
 import {VacationDays} from "@/component/NavHome/DetailData/VacationDays.jsx";
 import {AverageBenefits} from "@/component/NavHome/DetailData/AverageBenefits.jsx";
+import {AlertVacationDays} from "@/component/NavAlert/AlertVacationDays.jsx";
 
 const navHead = [
   {
@@ -38,7 +39,7 @@ export const NavBody = () => {
         <Route path="/" element={<Home />} />
         <Route path="/employee" element={<Employee />} />
         <Route path="/alerts" element={<Alert />} />
-
+            <Route path="/alerts/vacation_day" element={<AlertVacationDays />} />
         <Route path="/totalEarning" element={<TotalEarnings />}></Route>
         <Route
           path="/totalNumberOfVacationDay"

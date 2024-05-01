@@ -65,10 +65,10 @@ export const Home = () => {
       </div>
       <div className="w-full h-1/2 flex gap-10 p-5  box-border">
         <div className=" w-1/3 h-full overflow-auto shadow-lg shadow-gray-400">
-          <Notification></Notification>
+          <Notification />
         </div>
         <div className=" w-2/3 h-full shadow-lg shadow-gray-400 ">
-          <TransactionChart></TransactionChart>
+          <TransactionChart />
         </div>
       </div>
     </div>

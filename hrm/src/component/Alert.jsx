@@ -29,7 +29,7 @@ export const Alert = () => {
       <div className="w-full h-1/6 realtive flex box-border">
         <div className=" w-auto h-full  content-center ">
           <h1 className="w-auto h-auto leading-5 font-bold text-4xl p-5 px-7">
-            All Employee
+            Alerts
           </h1>
         </div>
       </div>

@@ -30,19 +30,21 @@ const TableVacationDays = () => {
             header: () => <span>Last Name</span>
         }),
         columnHelper.accessor('vacationDays', {
-            cell: info => <p>{info.getValue()}</p>,
+            cell: info => `${info.getValue() > 15 ? info.getValue() : " "}`,
             header: () => <span>Days Rest</span>
         })
     ];
     const [data, setData] = useState(() => []);
     useEffect(() => {
         listEmployees().then((response) => {
-            console.log(response.data); // Thêm dòng này
-            setData(response.data);
+            // Lọc ra những nhân viên có số ngày nghỉ lớn hơn 15
+            const filteredData = response.data.filter(employee => employee.vacationDays > 15);
+            setData(filteredData);
         }).catch((error) => {
             console.log(error);
         })
     }, []);
+
     const [globalFilter, setGlobalFilter] = useState("");
     const [sorting, setSorting] = useState([]);
 
@@ -84,7 +86,7 @@ const TableVacationDays = () => {
                     <tr key={headerGroup.id}>
                         {headerGroup.headers.map((header) => (
                             <th key={header.id} className="capitalize px-3.5 py-2">
-                            {header.isPlaceholder ? null : (
+                                {header.isPlaceholder ? null : (
                                     <div
                                         {...{
                                             className: header.column.getCanSort()

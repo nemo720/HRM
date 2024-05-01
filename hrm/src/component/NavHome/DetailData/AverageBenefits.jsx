@@ -1,7 +1,7 @@
 import TableBenefits from "@/component/NavHome/DetailData/TableBenefits.jsx";
 export const AverageBenefits = () => {
     return (
-        <div className="w-full h-full bg-gray-400 flex ">
+        <div className="w-full h-full bg-gray-50 flex ">
             <div className="w-full h-full flex-col ">
                 <div className="w-full h-1/6 realtive flex box-border">
                     <div className=" w-auto h-full  content-center ">

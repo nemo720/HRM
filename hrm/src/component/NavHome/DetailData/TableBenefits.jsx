@@ -7,8 +7,8 @@ import {
     useReactTable,
     getSortedRowModel,
 } from "@tanstack/react-table";
-import {USERS} from "@/services/dataEmployee.js";
-import { useState } from "react";
+import {listEmployees} from "@/services/EmployeeService.js";
+import {useEffect, useState} from "react";
 import DebouncedInput from "@/component/NavEmployee/DebouncedInput.jsx";
 import {SearchIcon} from "@/component/Icons.jsx";
 
@@ -16,27 +16,33 @@ const TableBenefits = () => {
     const columnHelper = createColumnHelper();
 
     const columns = [
-        columnHelper.accessor('Employee ID', {
-            cell: info => <span>{info.row.index + 1}</span>,
+        columnHelper.accessor('id', {
+            id: 'id',
+            header: () => <span>Employee ID</span>,
+            cell: info => <p>{info.getValue()}</p>,
         }),
-        columnHelper.accessor("EmployeeName", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Employee",
+        columnHelper.accessor('firstName', {
+            cell: info => <p>{info.getValue()}</p>,
+            header: () => <span>First Name</span>
         }),
-        columnHelper.accessor("Gender", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Gender",
+        columnHelper.accessor('lastName', {
+            cell: info => <p>{info.getValue()}</p>,
+            header: () => <span>Last Name</span>
         }),
-        columnHelper.accessor("DaysWorking", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Days working in this month",
-        }),
-        columnHelper.accessor("DaysRest", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Days rest",
-        }),
+        columnHelper.accessor("benefitPlans.deductable", {
+            cell: info => <p>{'$' + info.getValue()}</p>,
+            header: () => <span>Benefit Plan</span>
+        })
     ];
-    const [data] = useState(() => [...USERS]);
+    const [data, setData] = useState(() => []);
+    useEffect(() => {
+        listEmployees().then((response) => {
+            console.log(response.data); // Thêm dòng này
+            setData(response.data);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }, []);
     const [globalFilter, setGlobalFilter] = useState("");
     const [sorting, setSorting] = useState([]);
 
@@ -60,25 +66,25 @@ const TableBenefits = () => {
     });
 
     return (
-        <div className="p-1 max-w-5xl mx-auto text-white fill-gray-700">
+        <div className="p-1 max-w-5xl mx-auto text-black ">
             <div className="flex justify-between mb-2">
-                <div className="w-full flex items-center gap-1">
-                    <SearchIcon />
+                <div className="w-full flex items-center gap-1 justify-end">
+                    <SearchIcon/>
                     <DebouncedInput
                         value={globalFilter ?? ""}
                         onChange={(value) => setGlobalFilter(String(value))}
-                        className="pl-2 bg-neutral-300 text-gray-800 outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-indigo-500"
-                        placeholder="Search all columns..."
+                        className="pl-2 bg-neutral-300 text-gray-800 outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-indigo-300 rounded-md"
+                        placeholder="Search ..."
                     />
                 </div>
             </div>
             <table className="border border-gray-700 w-full text-left">
-                <thead className="bg-neutral-600">
+                <thead className="bg-neutral-400">
                 {table.getHeaderGroups().map((headerGroup) => (
                     <tr key={headerGroup.id}>
                         {headerGroup.headers.map((header) => (
                             <th key={header.id} className="capitalize px-3.5 py-2">
-                                {header.isPlaceholder ? null : (
+                            {header.isPlaceholder ? null : (
                                     <div
                                         {...{
                                             className: header.column.getCanSort()
@@ -108,7 +114,7 @@ const TableBenefits = () => {
                         <tr
                             key={row.id}
                             className={`
-                ${i % 2 === 0 ? "bg-gray-500" : "bg-gray-400"}
+                ${i % 2 === 0 ? "bg-white" : "bg-gray-200"}
                 `}
                         >
                             {row.getVisibleCells().map((cell) => (
@@ -132,18 +138,18 @@ const TableBenefits = () => {
                         table.previousPage();
                     }}
                     disabled={!table.getCanPreviousPage()}
-                    className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+                    className="p-1 rounded border border-gray-900 px-2 disabled:opacity-30"
                 >
-                    {"<"}
+                    {"< Previous"}
                 </button>
                 <button
                     onClick={() => {
                         table.nextPage();
                     }}
                     disabled={!table.getCanNextPage()}
-                    className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+                    className="p-1 rounded border border-gray-900 px-2 disabled:opacity-30"
                 >
-                    {">"}
+                    {"Next >"}
                 </button>
 
                 <span className="flex items-center gap-1">
@@ -170,9 +176,9 @@ const TableBenefits = () => {
                     onChange={(e) => {
                         table.setPageSize(Number(e.target.value));
                     }}
-                    className="p-2 bg-gray-400"
+                    className="p-2 bg-gray-200"
                 >
-                    {[5, 7].map((pageSize) => (
+                    {[3, 5, 7].map((pageSize) => (
                         <option key={pageSize} value={pageSize}>
                             Show {pageSize}
                         </option>
