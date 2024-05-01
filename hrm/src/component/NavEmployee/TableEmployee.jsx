@@ -48,7 +48,7 @@ const TableEmployee = () => {
       cell: info => <b>{info.getValue()}</b>,
       header: () => <span>lastName</span>
     }),
-    columnHelper.accessor('...', {
+    columnHelper.accessor(' ', {
       cell: info => <button
           type="button"
           className="btn btn-danger bg-red-500"
@@ -209,18 +209,18 @@ const TableEmployee = () => {
               table.previousPage();
             }}
             disabled={!table.getCanPreviousPage()}
-            className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+            className="p-1 rounded border border-gray-900 px-2 disabled:opacity-30"
         >
-          {"<"}
+          {"< Previous"}
         </button>
         <button
             onClick={() => {
               table.nextPage();
             }}
             disabled={!table.getCanNextPage()}
-            className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+            className="p-1 rounded border border-gray-900 px-2 disabled:opacity-30"
         >
-          {">"}
+          {"Next >"}
         </button>
 
         <span className="flex items-center gap-1">
