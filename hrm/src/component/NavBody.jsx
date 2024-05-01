@@ -8,6 +8,7 @@ import {TotalEarnings} from "@/component/NavHome/DetailData/TotalEarnings.jsx";
 import {VacationDays} from "@/component/NavHome/DetailData/VacationDays.jsx";
 import {AverageBenefits} from "@/component/NavHome/DetailData/AverageBenefits.jsx";
 import {AlertVacationDays} from "@/component/NavAlert/AlertVacationDays.jsx";
+import {AlertBirthday} from "@/component/NavAlert/AlertBirthday.jsx";
 
 const navHead = [
   {
@@ -40,6 +41,7 @@ export const NavBody = () => {
         <Route path="/employee" element={<Employee />} />
         <Route path="/alerts" element={<Alert />} />
             <Route path="/alerts/vacation_day" element={<AlertVacationDays />} />
+            <Route path="/alerts/birthday" element={<AlertBirthday />} />
         <Route path="/totalEarning" element={<TotalEarnings />}></Route>
         <Route
           path="/totalNumberOfVacationDay"

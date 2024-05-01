@@ -7,7 +7,7 @@ import {
     useReactTable,
     getSortedRowModel,
 } from "@tanstack/react-table";
-import {listEmployees} from "@/services/EmployeeService.js";
+import {listVacationDay} from "@/services/VacationDayService.js";
 import {useEffect, useState} from "react";
 import DebouncedInput from "@/component/NavEmployee/DebouncedInput.jsx";
 import {SearchIcon} from "@/component/Icons.jsx";
@@ -16,7 +16,7 @@ const TableVacationDays = () => {
     const columnHelper = createColumnHelper();
 
     const columns = [
-        columnHelper.accessor('id', {
+        columnHelper.accessor('idEmployee', {
             id: 'id',
             header: () => <span>Employee ID</span>,
             cell: info => <p>{info.getValue()}</p>,
@@ -30,20 +30,28 @@ const TableVacationDays = () => {
             header: () => <span>Last Name</span>
         }),
         columnHelper.accessor('vacationDays', {
-            cell: info => `${info.getValue() > 15 ? info.getValue() : " "}`,
+            cell: info => <p>{info.getValue()}</p>,
             header: () => <span>Days Rest</span>
         })
     ];
     const [data, setData] = useState(() => []);
     useEffect(() => {
-        listEmployees().then((response) => {
+        listVacationDay().then((response) => {
+            console.log(response.data);
+            setData(response.data);
+        }).catch((error) => {
+            console.log("Fetching data failed:", error);
+        })
+    }, []);/*useEffect(() => {
+        listVacationDay().then((response) => {
             // Lọc ra những nhân viên có số ngày nghỉ lớn hơn 15
             const filteredData = response.data.filter(employee => employee.vacationDays > 15);
             setData(filteredData);
         }).catch((error) => {
             console.log(error);
         })
-    }, []);
+    }, []);*/
+
 
     const [globalFilter, setGlobalFilter] = useState("");
     const [sorting, setSorting] = useState([]);

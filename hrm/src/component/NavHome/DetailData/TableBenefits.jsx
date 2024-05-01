@@ -40,7 +40,7 @@ const TableBenefits = () => {
             console.log(response.data); // Thêm dòng này
             setData(response.data);
         }).catch((error) => {
-            console.log(error);
+            console.log("Fetching data failed:", error);
         })
     }, []);
     const [globalFilter, setGlobalFilter] = useState("");
