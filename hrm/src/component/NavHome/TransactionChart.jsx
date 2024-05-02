@@ -68,7 +68,7 @@ const TransactionChart=()=> {
 	return (
 		<div className="h-full w-full bg-white p-4 rounded border border-gray-200 flex flex-col flex-1">
 			<strong className="text-gray-700 font-medium">Transactions</strong>
-			<div className="mt-3 w-full h-full flex-1 text-xs">
+			<div className="mt-3 w-full h-full flex-1 text-sm ">
 				<ResponsiveContainer width="100%" height="100%">
 					<BarChart
 						width={500}

@@ -28,9 +28,9 @@ const navContent = [
 ];
 export const NavBar = () => {
   return (
-    <div className="max-w-full w-1/5  bg-white-400 border-2 flex items-center flex-col ">
+    <div className=" w-1/5 bg-white-400 border-2 flex items-center flex-col ">
       <div className=" w-[70%] h-[150px] mt-6 bg-white-100 ">
-        <img src={Logo} alt="Logo" className="w-full h-auto px-3" />
+        <img src={Logo} alt="Logo" className="w-full h-full px-3" />
       </div>
       {navContent.map((nav) => (
         <NavItem key={nav.title} title={nav.title} href={nav.href} >

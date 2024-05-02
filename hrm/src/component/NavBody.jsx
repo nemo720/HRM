@@ -25,7 +25,7 @@ const navHead = [
 ];
 export const NavBody = () => {
   return (
-    <div className="max-w-full w-4/5 h-full  flex items-center flex-col ">
+    <div className="max-w-full w-4/5 h-full  flex items-center flex-col  ">
       <div
         className="w-full h-16   flex items-center gap-4
          justify-end border-[2px] "

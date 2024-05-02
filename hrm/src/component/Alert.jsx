@@ -25,7 +25,7 @@ const navContentAlert = [
 ];
 export const Alert = () => {
   return (
-    <div className="w-full h-full flex-col ">
+    <div className="w-full h-full flex-col  ">
       <div className="w-full h-1/6 realtive flex box-border">
         <div className=" w-auto h-full  content-center ">
           <h1 className="w-auto h-auto leading-5 font-bold text-4xl p-5 px-7">
@@ -33,7 +33,7 @@ export const Alert = () => {
           </h1>
         </div>
       </div>
-      <div className="w-full h-5/6 flex gap-6 items-center justify-around flex-wrap   ">
+      <div className="w-full h-5/6 flex gap-6 items-center justify-around flex-wrap max-md:flex-col max-md:gap-2 max-md:px-5  max-md:items-start max ">
         {navContentAlert.map((nav) => (
           <AlertItem key={nav.title} title={nav.title} href={nav.href}>
             {nav.icon}
