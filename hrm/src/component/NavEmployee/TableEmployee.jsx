@@ -35,7 +35,7 @@ const TableEmployee = () => {
     // }
   };
   const columns = [
-    columnHelper.accessor('id', {
+    columnHelper.accessor('idEmployee', {
       id: 'id',
       header: () => <span>Employee ID</span>,
       cell: info => <p>{info.getValue()}</p>,
@@ -51,6 +51,10 @@ const TableEmployee = () => {
     columnHelper.accessor('email', {
       cell: info => <p>{info.getValue()}</p>,
       header: () => <span>Email</span>
+    }),
+    columnHelper.accessor('gender', {
+      cell: info => <p>{info.getValue() === true ? 'Male' : 'Female'}</p>,
+      header: () => <span>Gender</span>
     }),
     columnHelper.accessor('daysWorkingPerMonth', {
       cell: info => <p>{info.getValue()}</p>,
@@ -116,7 +120,7 @@ const TableEmployee = () => {
   });
 
   return (
-    <div className="p-1 max-w-5xl mx-auto text-black ">
+    <div className="p-1 max-w-6xl mx-auto text-black ">
       <div className="flex justify-between mb-2">
         <div className="w-full flex items-center gap-1 justify-end">
           <SearchIcon />

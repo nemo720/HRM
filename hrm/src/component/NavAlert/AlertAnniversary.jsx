@@ -1,7 +1,6 @@
 import AnniversaryList from "@/component/NavAlert/AnniversaryList.jsx";
-import BirthdayList from "@/component/NavAlert/BirthdayList.jsx";
 
-export const AlertBirthday = () => {
+export const AlertAnniversary = () => {
 
     return (
         <div className="w-full h-full bg-gray-50 flex ">
@@ -9,11 +8,11 @@ export const AlertBirthday = () => {
                 <div className="w-full h-1/6 realtive flex box-border">
                     <div className=" w-auto h-full  content-center ">
                         <h1 className="w-auto h-auto leading-5 font-bold text-4xl p-3 px-7">
-                            Alert Birthday
+                            Alert Anniversary
                         </h1>
                     </div>
                 </div>
-                <BirthdayList/>
+                <AnniversaryList/>
             </div>
         </div>
     );

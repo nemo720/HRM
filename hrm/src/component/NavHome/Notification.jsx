@@ -49,7 +49,7 @@ const notification = [
 
 const Notification = () => {
 	return (
-		<div className="w-auto h-auto bg-white p-4 rounded-lg border border-gray-200">
+		<div className="w-auto h-auto bg-white p-4 rounded border border-gray-200">
 			<strong className="text-gray-700 font-medium">Notifications</strong>
 			<div className="mt-4 flex flex-col gap-3">
 				{notification.map((product) => (
