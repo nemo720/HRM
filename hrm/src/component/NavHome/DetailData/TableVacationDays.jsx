@@ -16,7 +16,7 @@ const TableVacationDays = () => {
     const columnHelper = createColumnHelper();
 
     const columns = [
-        columnHelper.accessor('id', {
+        columnHelper.accessor('idEmployee', {
             id: 'id',
             header: () => <span>Employee ID</span>,
             cell: info => <p>{info.getValue()}</p>,
