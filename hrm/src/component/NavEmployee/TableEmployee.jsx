@@ -121,7 +121,7 @@ const TableEmployee = () => {
 
   return (
     <div className="p-1 max-w-6xl mx-auto text-black ">
-      <div className="flex justify-between mb-2">
+      <div className="flex justify-between mb-2 flex-row-reverse">
         <div className="w-full flex items-center gap-1 justify-end">
           <SearchIcon />
           <DebouncedInput
@@ -131,6 +131,7 @@ const TableEmployee = () => {
             placeholder="Search ..."
           />
         </div>
+        <a href="/handleEmployee" className="w-auto h-full p-1 rounded-md bg-blue-300">Create</a>
       </div>
       <table className="border border-gray-700 w-full text-left">
         <thead className="bg-neutral-400">
