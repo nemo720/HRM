@@ -131,7 +131,7 @@ const TableEmployee = () => {
             placeholder="Search ..."
           />
         </div>
-        <a href="/handleEmployee" className="w-auto h-full p-1 rounded-md bg-blue-300">Create</a>
+        <a href="/handleEmployee" className="w-auto h-full  rounded-md bg-blue-300 px-2 py-1 hover:transition hover:scale-110 hover:bg-slate-200 hover:border-blue-200 hover:border active:bg-red-200 duration-150">Create</a>
       </div>
       <table className="border border-gray-700 w-full text-left">
         <thead className="bg-neutral-400">
