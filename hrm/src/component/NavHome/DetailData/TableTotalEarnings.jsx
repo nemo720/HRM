@@ -35,14 +35,24 @@ const TableTotalEarnings = () => {
         })
     ];
     const [data, setData] = useState(() => []);
-    useEffect(() => {
+    /*useEffect(() => {
         listEmployees().then((response) => {
-            console.log(response.data); // Thêm dòng này
+            console.log(response.data);
             setData(response.data);
         }).catch((error) => {
             console.log("Fetching data failed:", error);
         })
+    }, []);*/
+    useEffect(() => {
+        listEmployees().then((response) => {
+            // Lọc ra những người không phải là nhân viên
+            const filteredData = response.data.filter(employee => employee.idEmployee !== 0);
+            setData(filteredData);
+        }).catch((error) => {
+            console.log(error);
+        })
     }, []);
+
     const [globalFilter, setGlobalFilter] = useState("");
     const [sorting, setSorting] = useState([]);
 

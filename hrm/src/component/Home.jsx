@@ -3,10 +3,20 @@ import Notification from "./NavHome/Notification";
 import TransactionChart from "./NavHome/TransactionChart";
 import { Link } from "react-router-dom";
 import PersonFilterButtons from "@/component/NavHome/PersonFilterButtons.jsx";
+import {useState} from "react";
+import {EmployeeContext} from "@/lib/EmployeeContext.jsx";
+
 
 const hrefHome =['/totalEarning','/totalNumberOfVacationDay','/averageBenefits']
 export const Home = () => {
-  return (
+	const [employeeData, setEmployeeData] = useState({
+		totalEarnings: 0,
+		totalVacationDays: 0,
+		averageBenefits: 0
+	});
+
+	return (
+		<EmployeeContext.Provider value={{ employeeData, setEmployeeData }}>
     <div className="flex w-full h-full bg-gray-50 flex-col pb-3 ">
       <div className="w-full h-1/6 justify-between  flex box-border px-5">
         <div className=" w-auto h-auto content-center ">
@@ -32,8 +42,7 @@ export const Home = () => {
 				<div className="pl-5">
 					<span className="text-sm text-gray-500 font-semibold">Total earnings</span>
 					<div className="flex items-center">
-						<strong className="text-xl text-gray-700 font-semibold">$54232</strong>
-						<span className="text-sm text-green-500 pl-2">+343</span>
+						<strong className="text-xl text-gray-700 font-semibold">{`$${employeeData.totalEarnings}`}</strong>
 					</div>
 				</div>
 			</BoxWrapper>
@@ -42,10 +51,9 @@ export const Home = () => {
 					<CalendarCheck className="text-2xl text-white" />
 				</div>
 				<div className="pl-5">
-					<span className="text-sm text-gray-500 font-semibold">Total number of vacation days</span>
+					<span className="text-sm text-gray-500 font-semibold">Total vacation days</span>
 					<div className="flex items-center">
-						<strong className="text-xl text-gray-700 font-semibold">$3423</strong>
-						<span className="text-sm text-green-500 pl-2">-343</span>
+						<strong className="text-xl text-gray-700 font-semibold">{`${employeeData.totalVacationDays}`}</strong>
 					</div>
 				</div>
 			</BoxWrapper>
@@ -54,10 +62,9 @@ export const Home = () => {
 					<CircleDollarSign className="text-2xl text-white" />
 				</div>
 				<div className="pl-5">
-					<span className="text-sm text-gray-500 font-semibold">Average benefits</span>
+					<span className="text-sm text-gray-500 font-semibold">Average benefits plan</span>
 					<div className="flex items-center">
-						<strong className="text-xl text-gray-700 font-semibold">12313</strong>
-						<span className="text-sm text-red-500 pl-2">-30</span>
+						<strong className="text-xl text-gray-700 font-semibold">{`$${employeeData.averageBenefits}`}</strong>
 					</div>
 				</div>
 			</BoxWrapper>
@@ -72,6 +79,7 @@ export const Home = () => {
         </div>
       </div>
     </div>
+	</EmployeeContext.Provider>
   );
 };
 function BoxWrapper({ children,href }) {
