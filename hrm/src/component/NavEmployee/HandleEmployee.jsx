@@ -1,12 +1,11 @@
-import { useState } from "react";
-import Form1 from "@/component/NavEmployee/Form/Form1.jsx";
-import Form2 from "@/component/NavEmployee/Form/Form2.jsx";
-import Form3 from "@/component/NavEmployee/Form/Form3.jsx";
-import Form4 from "@/component/NavEmployee/Form/Form4.jsx";
-
+import { useEffect, useState } from "react";
+import Form1 from "./Form/Form1";
+import Form2 from "./Form/Form2";
+import Form3 from "./Form/Form3";
+import Form4 from "./Form/Form4";
 export const HandleEmployee = () => {
   // const [formData, setFormData] = useState({
-  //     firstName: '',
+  //     firtName: '',
   //     lastName: '',
   //     idEmployee: '',
   //     payRate: '',
@@ -31,6 +30,32 @@ export const HandleEmployee = () => {
   //     // Handle form submission here
   // };
   const [formData, setFormData] = useState({ destination: "", form: 1 });
+  useEffect(() => {
+    const createData = async () => {
+      try {
+        
+        const response = await fetch('https://your-api-endpoint.com/data', {
+          method: 'POST',
+          // 
+          headers: {
+            'Content-Type': 'application/json'
+            // Add any other headers your API requires
+          },
+          body: JSON.stringify(formData)
+        });
+        if (!response.ok) {
+          throw new Error('Failed to create data');
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    };
+
+    // Call the createData function when the component mounts or when formData changes
+    if (formData) {
+      createData();
+    }
+  }, [formData]);
   return (
     <div className="w-full h-full flex flex-col ">
       {formData.form === 1 ? (

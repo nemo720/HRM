@@ -14,13 +14,13 @@ export const Form1 = ({ formData, setFormData }) => {
               {/* First Column */}
               <div className="flex flex-col justify-center items-center">
                 <label htmlFor="firt-name" className="flex  mb-2 w-[80%] gap-1">
-                  First Name <p className="text-red-600">*</p>
+                  Firt Name <p className="text-red-600">*</p>
                 </label>
                 <input
                   type="text"
                   id="firt-name"
-                  name="firstName"
-                  value={formData.firstName}
+                  name="firtName"
+                  value={formData.firtName}
                   onChange={handleChange}
                   className="w-[80%] border rounded-md px-3 py-2"
                   placeholder="Firt Name"

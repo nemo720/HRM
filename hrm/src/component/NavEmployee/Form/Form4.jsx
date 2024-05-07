@@ -1,15 +1,20 @@
 
+
 export const  Form4 = ({ formData, setFormData }) => {
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+    const handleSubmit = (e) =>{
+      e.preventDefault();
+      console.log(formData);
+    }
     return (
       <div className="w-full h-full flex flex-col ">
         <div className="w-full flex-[1] flex items-center  box-border">
           <h1 className="text-xl  text-[#237395] ml-6">Add new Employee </h1>
         </div>
         <div className="w-full flex flex-[9] justify-center items-center">
-          <form className="w-[90%] h-full   ">
+          <form onSubmit={handleSubmit} className="w-[90%] h-full   ">
             <div className="w-full h-[83%] flex flex-col  ">
               <h1 className="mb-3 text-lg flex">
                 PayRates<p className="text-red-600">*</p>{" "}
