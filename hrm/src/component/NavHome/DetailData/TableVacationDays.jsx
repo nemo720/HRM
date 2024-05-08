@@ -35,14 +35,24 @@ const TableVacationDays = () => {
         })
     ];
     const [data, setData] = useState(() => []);
-    useEffect(() => {
+    /*useEffect(() => {
         listEmployees().then((response) => {
             console.log(response.data); // Thêm dòng này
             setData(response.data);
         }).catch((error) => {
             console.log("Fetching data failed:", error);
         })
+    }, []);*/
+    useEffect(() => {
+        listEmployees().then((response) => {
+            // Lọc ra những nhân viên có số ngày nghỉ lớn hơn 15
+            const filteredData = response.data.filter(employee => employee.vacationDays !== 0);
+            setData(filteredData);
+        }).catch((error) => {
+            console.log(error);
+        })
     }, []);
+
     const [globalFilter, setGlobalFilter] = useState("");
     const [sorting, setSorting] = useState([]);
 
