@@ -1,24 +1,17 @@
 
-import { useParams } from "react-router-dom";
+
 export const  Form2 =({ formData, setFormData }) => {
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    const { id } = useParams();
-    function pageTitle(){
-      if (id){
-        return <h1 className="text-xl  text-[#237395] ml-6">Edit Employee</h1>
-      }else{
-        return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>
-      }}
     return (
       <div className="w-full h-full flex flex-col ">
         <div className="w-full flex-[1] flex items-center  box-border">
-          {pageTitle()}
+          <h1 className="text-xl  text-[#237395] ml-6">Add new Employee </h1>
         </div>
         <div className="w-full flex flex-[9] justify-center items-center">
           <form className="w-[90%] h-full   ">
-            <div className="grid grid-cols-2 gap-8 ">
+            <div className="grid grid-cols-2 gap-7 ">
               {/* First Column */}
               <div className="flex flex-col justify-center items-center">
                 <label htmlFor="ssnP" className="flex  mb-2 w-[80%] gap-1">
@@ -50,34 +43,38 @@ export const  Form2 =({ formData, setFormData }) => {
                 />
               </div>
               <div className="flex flex-col justify-center items-center">
-                <label htmlFor="address1" className="flex  mb-2 w-[80%] gap-1">
-                  {" "}
-                  Address 1<p className="text-red-600">*</p>
-                </label>
-                <input
-                  type="text"
-                  id="address1"
-                  name="address1"
-                  value={formData.address1}
-                  onChange={handleChange}
-                  className="w-[80%] border rounded-md px-3 py-2"
-                  placeholder="Address 1"
-                />
+              <label
+                htmlFor="paid-last-year"
+                className="flex  mb-2 w-[80%] gap-1"
+              >
+                Paid Last Year <p className="text-red-600">*</p>
+              </label>
+              <input
+                type="text"
+                id="paid-last-year"
+                name="paidLastYear"
+                value={formData.paidLastYear}
+                onChange={handleChange}
+                className="w-[80%] border rounded-md px-3 py-2"
+                placeholder="Paid Last Year"
+              />
               </div>
               <div className="flex flex-col justify-center items-center">
-                <label htmlFor="address2" className="flex  mb-2 w-[80%] gap-1">
-                  {" "}
-                  Address 2 <p className="text-red-600">*</p>
-                </label>
-                <input
-                  type="text"
-                  id="address2"
-                  name="address2"
-                  value={formData.address2}
-                  onChange={handleChange}
-                  className="w-[80%] border rounded-md px-3 py-2"
-                  placeholder="Address 2"
-                />
+                 <label
+                htmlFor="paid-to-date"
+                className="flex  mb-2 w-[80%] gap-1"
+              >
+                Paid To Day <p className="text-red-600">*</p>
+              </label>
+              <input
+                type="text"
+                id="paid-to-date"
+                name="paidToDate"
+                value={formData.paidToDate}
+                onChange={handleChange}
+                className="w-[80%] border rounded-md px-3 py-2"
+                placeholder="Paid To Day"
+              />
               </div>
               <div className="flex flex-col justify-center items-center">
                 <label htmlFor="city" className="flex  mb-2 w-[80%] gap-1">
@@ -123,52 +120,86 @@ export const  Form2 =({ formData, setFormData }) => {
                 />
               </div>
               <div className="flex flex-col justify-center items-center">
-                <label htmlFor="gender" className="flex  mb-2 w-[80%] gap-1">
-                  Gender <p className="text-red-600">*</p>
-                </label>
-                <input
-                  type="text"
-                  id="gender"
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                  className="w-[80%] border rounded-md px-3 py-2"
-                  placeholder="Gender"
-                />
+              <label
+                htmlFor="vacation-days"
+                className="flex  mb-2 w-[80%] gap-1"
+              >
+                Vacation Days <p className="text-red-600">*</p>
+              </label>
+              <input
+                type="text"
+                id="vacations-days"
+                name="vacationDays"
+                value={formData.vacationDays}
+                onChange={handleChange}
+                className="w-[80%] border rounded-md px-3 py-2"
+                placeholder="Vacation Days"
+              />
               </div>
               <div className="flex flex-col justify-center items-center">
-                <label htmlFor="email" className="flex  mb-2 w-[80%] gap-1">
-                  Email <p className="text-red-600">*</p>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-[80%] border rounded-md px-3 py-2"
-                  placeholder="Email"
-                />
+              <label
+                htmlFor="middle-initial"
+                className="flex  mb-2 w-[80%] gap-1"
+              >
+                MiddleInitial <p className="text-red-600">*</p>
+              </label>
+              <input
+                type="text"
+                id="middle-initial"
+                name="middleInitial"
+                value={formData.middleInitial}
+                onChange={handleChange}
+                className="w-[80%] border rounded-md px-3 py-2"
+                placeholder="MiddleInitial"
+              />
+              </div>
+             
+              <div className="flex flex-col justify-center items-center">
+              <label htmlFor="iD-payRate" className="flex  mb-2 w-[80%] gap-1">
+                  ID PayRate <p className="text-red-600">*</p>
+                  </label>
+                  <input
+                    type="text"
+                    id="iD-payRate"
+                    name="iDPayRate"
+                    value={formData.iDPayRate}
+                    onChange={handleChange}
+                    className="w-[80%] border rounded-md px-3 py-2"
+                    placeholder="ID PayRate"
+                  />
               </div>
               <div className="flex flex-col justify-center items-center">
-                <label
-                  htmlFor="phone-number"
-                  className="flex  mb-2 w-[80%] gap-1"
-                >
-                  Phone Number <p className="text-red-600">*</p>
-                </label>
-                <input
-                  type="text"
-                  id="phone-number"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  className="w-[80%] border rounded-md px-3 py-2"
-                  placeholder="Phone Number"
-                />
+              <label htmlFor="benefit-planId" className="flex  mb-2 w-[80%] gap-1">
+                  Benefit PlanId <p className="text-red-600">*</p>
+                  </label>
+                  <input
+                    type="text"
+                    id="benefit-planId"
+                    name="benefitPlanId"
+                    value={formData.benefitPlanId}
+                    onChange={handleChange}
+                    className="w-[80%] border rounded-md px-3 py-2"
+                    placeholder="Benefit PlanId"
+                  />
               </div>
+              <div className="flex  justify-between px-4 items-end">
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, form: 1 })}
+                className=" w-28 px-4 py-2 bg-[#CBE4EF] rounded-md active:bg-red-50 transition duration-150 ease-linear "
+              >
+                Return
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, form: 3 })}
+                className=" w-28  px-4 py-2 bg-[#CBE4EF] rounded-md active:bg-red-50 transition duration-150 ease-linear "
+              >
+                Continute
+              </button>
             </div>
-            <div className="right-10 w-full pr-10 flex h-10 mt-10 justify-end gap-16">
+            </div>
+            {/* <div className="right-10 w-full pr-10 flex h-10 mt-10 justify-end gap-16">
               <button
                 type="button"
                 onClick={() => setFormData({ ...formData, form: 1 })}
@@ -183,7 +214,7 @@ export const  Form2 =({ formData, setFormData }) => {
               >
                 Continute
               </button>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>
