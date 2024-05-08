@@ -1,13 +1,20 @@
 
-
+import { useParams } from "react-router-dom";
 export const  Form2 =({ formData, setFormData }) => {
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+    const { id } = useParams();
+    function pageTitle(){
+      if (id){
+        return <h1 className="text-xl  text-[#237395] ml-6">Edit Employee</h1>
+      }else{
+        return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>
+      }}
     return (
       <div className="w-full h-full flex flex-col ">
         <div className="w-full flex-[1] flex items-center  box-border">
-          <h1 className="text-xl  text-[#237395] ml-6">Add new Employee </h1>
+          {pageTitle()}
         </div>
         <div className="w-full flex flex-[9] justify-center items-center">
           <form className="w-[90%] h-full   ">
