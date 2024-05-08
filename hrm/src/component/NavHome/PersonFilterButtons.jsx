@@ -23,24 +23,28 @@ function PersonFilterButtons() {
     }, [data]);
     const handleButtonClick = (buttonType) => {
         setActive(buttonType);
-
         const filteredData = data.filter(employee =>
             (buttonType === '1' && employee.shareholderStatus===false) ||
             (buttonType === '2' && employee.shareholderStatus===true)
         );
-
         const totalEarnings = filteredData.reduce((total, employee) => total + (employee.payRates ? employee.payRates.payAmount : 0), 0);
         const totalVacationDays = filteredData.reduce((total, employee) => total + (employee.vacationDays || 0), 0);
-
         const averageBenefits = filteredData.length > 0 ?
             filteredData.reduce((total, employee) => total + (employee.benefitPlans ? employee.benefitPlans.deductable : 0), 0) / filteredData.length :
             0;
-        setEmployeeData({
+        console.log(totalEarnings, totalVacationDays, averageBenefits);
+        const transactions = filteredData.map(employee => ({
+            name: employee.name,
+            payAmount: employee.payRates ? employee.payRates.payAmount : 0,
+            deductable: employee.benefitPlans ? employee.benefitPlans.deductable : 0
+        }));
+        setEmployeeData(prevState => ({
+            ...prevState,
             totalEarnings,
             totalVacationDays,
-            averageBenefits
-        });
-        console.log(totalEarnings, totalVacationDays, averageBenefits);
+            averageBenefits,
+            transactions
+        }));
     };
 
     return (
