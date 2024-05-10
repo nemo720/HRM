@@ -1,7 +1,8 @@
 import {useParams} from "react-router-dom";
 import {getEmployee} from "@/services/EmployeeService.js";
-
-export const Form3 = ({ formData, setFormData }) => {
+import { useState } from "react";
+export const Form3 = ({ formData, 
+  setFormData }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -20,7 +21,10 @@ export const Form3 = ({ formData, setFormData }) => {
     e.preventDefault();
     console.log(formData);
   };
-
+  const [selectedStatus, setSelectedStatus] = useState(null);
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
   return (
       <div className="w-full h-full flex flex-col ">
         <div className="w-full flex-[1] flex items-center  box-border">
@@ -30,6 +34,7 @@ export const Form3 = ({ formData, setFormData }) => {
           <form onSubmit={handleSubmit} className="w-[90%] h-full   ">
             <div className="grid grid-cols-2 gap-7 ">
               {/* First Column */}
+
               <div className="flex flex-col justify-center items-center">
                 <label
                     htmlFor="merital-status"
@@ -38,7 +43,7 @@ export const Form3 = ({ formData, setFormData }) => {
                   Marital Status <p className="text-red-600">*</p>
                 </label>
                 <select
-                    id="mySelect"
+                    id="marital-status"
                     name="maritalStatus" // Add the name attribute to match the state key
                     value={formData.maritalStatus} // Set the selected value based on formData
                     onChange={handleChange}
@@ -73,15 +78,28 @@ export const Form3 = ({ formData, setFormData }) => {
                   {" "}
                   Sharehoder Status <p className="text-red-600">*</p>
                 </label>
-                <input
-                    type="text"
-                    id="shareholder-status"
+                <div className="w-[80%]  rounded-md px-3 py-2 flex justify-around">
+                <label className="gap-2 flex">
+                  <input
+                    type="radio"
                     name="shareholderStatus"
-                    value={formData.shareholderStatus}
-                    onChange={handleChange}
-                    className="w-[80%] border rounded-md px-3 py-2"
-                    placeholder="Shareholder Status"
-                />
+                    value="yes"
+                    checked={selectedStatus === "yes"}
+                    onChange={handleStatusChange}
+                  />
+                  Yes
+                </label>
+                <label className="gap-2 flex">
+                  <input
+                    type="radio"
+                    name="shareholderStatus"
+                    value="no"
+                    checked={selectedStatus === "no"}
+                    onChange={handleStatusChange}
+                  />
+                  No
+                </label>
+              </div>
               </div>
               <div className="flex flex-col justify-center items-center">
                 <label

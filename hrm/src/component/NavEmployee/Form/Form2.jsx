@@ -170,29 +170,40 @@ export const  Form2 =({ formData, setFormData }) => {
                 <label htmlFor="id-payRate" className="flex  mb-2 w-[80%] gap-1">
                   ID PayRate <p className="text-red-600">*</p>
                 </label>
-                <input
-                    type="number"
-                    id="id-payRate"
-                    name="idPayRate"
-                    value={formData.idPayRate}
+                <select
+                    id="id-payrate"
+                    name="iDPayRate" // Add the name attribute to match the state key
+                    value={formData.iDPayRate} // Set the selected value based on formData
                     onChange={handleChange}
-                    className="w-[80%] border rounded-md px-3 py-2"
-                    placeholder="ID PayRate"
-                />
+                    className=" w-[80%] border rounded-md  px-3 py-[9px]"
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  
+                </select>
               </div>
               <div className="flex flex-col justify-center items-center">
                 <label htmlFor="benefit-planId" className="flex  mb-2 w-[80%] gap-1">
                   Benefit PlanId <p className="text-red-600">*</p>
                 </label>
-                <input
-                    type="number"
+                <select
                     id="benefit-planId"
-                    name="benefitPlanId"
-                    value={formData.benefitPlanId}
+                    name="benefitPlanId" // Add the name attribute to match the state key
+                    value={formData.benefitPlanId} // Set the selected value based on formData
                     onChange={handleChange}
-                    className="w-[80%] border rounded-md px-3 py-2"
-                    placeholder="Benefit PlanId"
-                />
+                    className=" w-[80%] border rounded-md  px-3 py-[9px]"
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select>
               </div>
               <div className="flex  justify-between px-4 items-end">
                 <button
