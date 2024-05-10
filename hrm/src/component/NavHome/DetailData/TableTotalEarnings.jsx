@@ -18,7 +18,7 @@ const TableTotalEarnings = () => {
     const columns = [
         columnHelper.accessor('idEmployee', {
             id: 'id',
-            header: () => <span>Employee ID</span>,
+            header: () => <span>Employee Number</span>,
             cell: info => <p>{info.getValue()}</p>,
         }),
         columnHelper.accessor('firstName', {

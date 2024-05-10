@@ -45,7 +45,7 @@ export const  Form2 =({ formData, setFormData }) => {
                   ssnE <p className="text-red-600">*</p>
                 </label>
                 <input
-                    type="text"
+                    type="number"
                     id="ssnE"
                     name="ssnE"
                     value={formData.ssnE}
@@ -62,7 +62,7 @@ export const  Form2 =({ formData, setFormData }) => {
                   Paid Last Year <p className="text-red-600">*</p>
                 </label>
                 <input
-                    type="text"
+                    type="number"
                     id="paid-last-year"
                     name="paidLastYear"
                     value={formData.paidLastYear}
@@ -79,7 +79,7 @@ export const  Form2 =({ formData, setFormData }) => {
                   Paid To Day <p className="text-red-600">*</p>
                 </label>
                 <input
-                    type="text"
+                    type="number"
                     id="paid-to-date"
                     name="paidToDate"
                     value={formData.paidToDate}
@@ -122,7 +122,7 @@ export const  Form2 =({ formData, setFormData }) => {
                   Zip <p className="text-red-600">*</p>
                 </label>
                 <input
-                    type="text"
+                    type="number"
                     id="zip"
                     name="zip"
                     value={formData.zip}
@@ -139,7 +139,7 @@ export const  Form2 =({ formData, setFormData }) => {
                   Vacation Days <p className="text-red-600">*</p>
                 </label>
                 <input
-                    type="text"
+                    type="number"
                     id="vacations-days"
                     name="vacationDays"
                     value={formData.vacationDays}
@@ -167,14 +167,14 @@ export const  Form2 =({ formData, setFormData }) => {
               </div>
 
               <div className="flex flex-col justify-center items-center">
-                <label htmlFor="iD-payRate" className="flex  mb-2 w-[80%] gap-1">
+                <label htmlFor="id-payRate" className="flex  mb-2 w-[80%] gap-1">
                   ID PayRate <p className="text-red-600">*</p>
                 </label>
                 <input
-                    type="text"
-                    id="iD-payRate"
-                    name="iDPayRate"
-                    value={formData.iDPayRate}
+                    type="number"
+                    id="id-payRate"
+                    name="idPayRate"
+                    value={formData.idPayRate}
                     onChange={handleChange}
                     className="w-[80%] border rounded-md px-3 py-2"
                     placeholder="ID PayRate"
@@ -185,7 +185,7 @@ export const  Form2 =({ formData, setFormData }) => {
                   Benefit PlanId <p className="text-red-600">*</p>
                 </label>
                 <input
-                    type="text"
+                    type="number"
                     id="benefit-planId"
                     name="benefitPlanId"
                     value={formData.benefitPlanId}
@@ -207,7 +207,7 @@ export const  Form2 =({ formData, setFormData }) => {
                     onClick={() => setFormData({ ...formData, form: 3 })}
                     className=" w-28  px-4 py-2 bg-[#CBE4EF] rounded-md active:bg-red-50 transition duration-150 ease-linear "
                 >
-                  Continute
+                  Continue
                 </button>
               </div>
             </div>

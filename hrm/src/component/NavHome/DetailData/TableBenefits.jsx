@@ -18,8 +18,8 @@ const TableBenefits = () => {
     const columns = [
         columnHelper.accessor('idEmployee', {
             id: 'id',
-            header: () => <span>Employee ID</span>,
-            cell: info => <p>{info.getValue()}</p>,
+            header: () => <span>Employee Number</span>,
+            cell: info => <p>{info.getValue() === 0 ? null : info.getValue()}</p>,
         }),
         columnHelper.accessor('firstName', {
             cell: info => <p>{info.getValue()}</p>,

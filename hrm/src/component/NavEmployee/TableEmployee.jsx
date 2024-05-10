@@ -38,7 +38,7 @@ const TableEmployee = () => {
   const columns = [
     columnHelper.accessor('idEmployee', {
       id: 'id',
-      header: () => <span>Employee ID</span>,
+      header: () => <span>Employee Number</span>,
       cell: info => <p>{info.getValue()}</p>,
     }),
     columnHelper.accessor('firstName', {
@@ -76,7 +76,7 @@ const TableEmployee = () => {
     columnHelper.accessor(' ', {
       cell: info => <a
           className="btn btn-danger bg-red-500"
-          href="/handleEmployee"
+          href="/"
       >
         delete
       </a>,

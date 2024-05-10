@@ -212,7 +212,7 @@ export const Form3 = ({ formData, setFormData }) => {
                   Days Working Per Month <p className="text-red-600">*</p>
                 </label>
                 <input
-                    type="date"
+                    type="number"
                     id="days-working-per-month"
                     name="daysWorkingPerMonth"
                     value={formData.daysWorkingPerMonth}
