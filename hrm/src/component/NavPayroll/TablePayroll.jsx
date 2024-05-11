@@ -102,8 +102,10 @@ const TablePayroll = () => {
             value={selectedValue} // Set the selected value based on formData
             onChange={handleSort}
             className=" w-auto  rounded-md  px-3 py-2 border "
+        
           >
-            <option value="fullTime">Sort by full time</option>
+          <option value="" disabled selected>Sort by time</option>
+            <option  value="fullTime">Sort by full time</option>
             <option value="partTime">Sort by part time</option>
           </select>
           <select
@@ -113,6 +115,7 @@ const TablePayroll = () => {
             onChange={handleSort}
             className=" w-auto  rounded-md  px-3 py-2 border "
           >
+          <option value="" disabled selected>Sort by ethnicity</option>
             <option value="british">British</option>
             <option value="canadian">Canadian</option>
             <option value="latino">Latino</option>
