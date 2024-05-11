@@ -22,7 +22,7 @@ const TableEmployee = () => {
     setIdDelete(item.id);
     setNameDelete(item.firstName);
   };
-  
+
   const handleDelete = async (id) => {
     // try {
     //   await axios.delete("http://localhost:8080/api/employee/" + id);
@@ -117,9 +117,10 @@ const TableEmployee = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
   const [selectedValue, setSelectedValue] = useState(null);
-const handleSort = (e) => {
-  setSelectedValue (e.target.value)
-}
+  const handleSort = (e) => {
+    setSelectedValue(e.target.value);
+  };
+
   return (
     <div className="p-1 max-w-6xl mx-auto text-black ">
       <div className="flex justify-between mb-2 flex-row-reverse">
@@ -132,24 +133,26 @@ const handleSort = (e) => {
             placeholder="Search ..."
           />
         </div>
-        <div className="w-auto h-full flex gap-6 ">
-          <a
-            href="/handleEmployee"
-            className="w-auto h-full  rounded-md bg-blue-300 px-2 py-2 hover:transition hover:scale-110 hover:bg-slate-200 hover:border-blue-200 hover:border active:bg-red-200 duration-150"
-          >
-            Create
-          </a>
+        <div className="w-auto h-full flex gap-6 "> 
+        <a
+          href="/handleEmployee"
+          className="w-auto h-full  rounded-md bg-blue-300 px-2 py-2 hover:transition hover:scale-110 hover:bg-slate-200 hover:border-blue-200 hover:border active:bg-red-200 duration-150"
+        >
+          Create
+        </a>
           <select
-            id="sort"
-            name="sort" // Add the name attribute to match the state key
+            id="sort-gender"
+            name="sortGender" // Add the name attribute to match the state key
             value={selectedValue} // Set the selected value based on formData
             onChange={handleSort}
-            className=" w-auto  rounded-md  px-3 border "
+            className=" w-auto  rounded-md  px-3 py-2 border "
           >
-            <option value="fullTime">Sort by full time</option>
-            <option value="partTime">Sort by part time</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
+         
         </div>
+
       </div>
       <table className="border border-gray-700 w-full text-left">
         <thead className="bg-neutral-400">
