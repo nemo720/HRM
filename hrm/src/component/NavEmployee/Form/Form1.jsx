@@ -29,7 +29,7 @@ export const Form1 = ({ formData, setFormData }) => {
       </div>
       <div className="w-full flex flex-[9] justify-center items-center">
         <form className="w-[90%] h-full relative">
-          <div className="grid grid-cols-2 gap-8 ">
+          <div className="grid grid-cols-2 gap-7 ">
             {/* First Column */}
             <div className="flex flex-col justify-center items-center">
               <label htmlFor="firt-name" className="flex  mb-2 w-[80%] gap-1">
@@ -192,14 +192,34 @@ export const Form1 = ({ formData, setFormData }) => {
                 placeholder="Ethnicity"
               />
             </div>
+            <div className="flex flex-col justify-center items-center">
+              <label
+                htmlFor="merital-status"
+                className="flex  mb-2 w-[80%] gap-1"
+              >
+                Marital Status <p className="text-red-600">*</p>
+              </label>
+              <select
+                id="marital-status"
+                name="maritalStatus" // Add the name attribute to match the state key
+                value={formData.maritalStatus} // Set the selected value based on formData
+                onChange={handleChange}
+                className=" w-[80%] border rounded-md  px-3 py-[9px]"
+              >
+                <option value="Single">Single</option>
+                <option value="Couple">Couple</option>
+              </select>
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, form: 2 })}
+                className="absolute mt-10 px-4 py-2 bg-[#CBE4EF] rounded-md right-10 active:bg-red-50 transition duration-150 ease-linear"
+              >
+                Continue
+              </button>
+            </div>
           </div>
-          <button
-            type="button"
-            onClick={() => setFormData({ ...formData, form: 2 })}
-            className="absolute mt-10 px-4 py-2 bg-[#CBE4EF] rounded-md right-10 active:bg-red-50 transition duration-150 ease-linear"
-          >
-            Continue
-          </button>
         </form>
       </div>
     </div>
