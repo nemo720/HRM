@@ -28,7 +28,9 @@ export const Form3 = ({ formData, setFormData }) => {
     if('form' in obj){
       delete obj.form;
     }
-    create(obj);
+    create(obj)
+        .then(r => console.log(r))
+        .catch(err => console.log(err));
   };
 
   return (
@@ -46,7 +48,7 @@ export const Form3 = ({ formData, setFormData }) => {
                 htmlFor="middle-initial"
                 className="flex  mb-2 w-[80%] gap-1"
               >
-                MiddleInitial <p className="text-red-600">*</p>
+                Middle Initial <p className="text-red-600">*</p>
               </label>
               <input
                 type="text"

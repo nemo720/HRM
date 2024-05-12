@@ -72,7 +72,7 @@ const TableEmployee = () => {
         </Link>
       ),
     }),
-    columnHelper.accessor(" ", {
+    columnHelper.accessor("  ", {
       cell: (info) => (
         <a className="w-full h-auto   " href="/">
           <Trash className="text-red-500 hover:scale-125 " />

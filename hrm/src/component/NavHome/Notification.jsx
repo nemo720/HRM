@@ -43,7 +43,7 @@ const Notification = () => {
 					>
 						<div className="w-10 h-10 min-w-[2.5rem] bg-gray-200 rounded-sm"></div>
 						<div className="ml-4 flex-1">
-							<p className="text-sm text-gray-800">{notify.firstName} {notify.lastName}</p>
+							<h2 className="text-sm text-gray-800">{notify.firstName} {notify.lastName}</h2>
 							<span
 								className={classNames(
 									getBirthdayClass(notify.birthday),

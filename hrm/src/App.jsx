@@ -1,5 +1,7 @@
 import { NavBar } from "./component/NavBar";
 import { NavBody } from "./component/NavBody";
+import "react-toastify/dist/ReactToastify.css";
+import {Slide, ToastContainer} from "react-toastify";
 // text: fontsize
 
 const App = () => {
@@ -8,6 +10,7 @@ const App = () => {
       {/* <NavBar/> ko truyen noi dung */}
       <NavBar />
       <NavBody></NavBody>
+        <ToastContainer transition={Slide} />
     </div>
   );
 };

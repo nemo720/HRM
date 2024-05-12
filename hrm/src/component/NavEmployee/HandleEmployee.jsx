@@ -4,11 +4,10 @@ import Form2 from "./Form/Form2";
 import Form3 from "./Form/Form3";
 import { toast } from "react-toastify";
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
 
 export const HandleEmployee = () => {
-    const [payRates,setPayRates] = useState();
-    const [benefitPlans,setBenefitPlans] = useState();
+    const [payRates,setPayRates] = useState("");
+    const [benefitPlans,setBenefitPlans] = useState("");
     const [formData, setFormData] = useState({
         form: 1,
         idEmployee: "",
@@ -27,7 +26,7 @@ export const HandleEmployee = () => {
         vacationDays: "",
         paidToDate: "",
         paidLastYear: "",
-        middleInitial: null,
+        middleInitial: "",
         birthday: "",
         ssnP: "",
         ssnE: "",
@@ -100,11 +99,13 @@ export const create = async (formData) => {
     console.log(formData)
     try {
         await axios.post("http://localhost:8080/api/personal/create", formData);
-        window.location.href = "/employee";
-        toast("thêm mới thành công",{
+        toast("Create employee successful!",{
             position: "top-center",
             autoClose: 2000
         })
+        setTimeout(() => {
+            window.location.href = "/employee";
+        }, 2100);
     }catch (e){
         console.log(e);
     }

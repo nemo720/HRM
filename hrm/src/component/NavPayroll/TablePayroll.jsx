@@ -45,8 +45,8 @@ const TablePayroll = () => {
       cell: (info) => <p>${info.getValue()}</p>,
       header: () => <span>Earnings</span>,
     }),
-    columnHelper.accessor("benefitPlans.deductable", {
-      cell: (info) => <p>${info.getValue() + info.row.original.payRates.payAmount}</p>,
+    columnHelper.accessor(" ", {
+      cell: (info) => <p>${info.row.original.benefitPlans.deductable + info.row.original.payRates.payAmount}</p>,
       header: () => <span>Total</span>,
     }),
   ];
