@@ -18,14 +18,19 @@ const Notification = () => {
 			.catch(error => console.error("Fetching birthdays failed:", error));
 	}, []);
 
-	const getBirthdayClass = (birthday) => {
-		const today = moment();
+	function getBirthdayClass(birthday) {
+		const today = moment().startOf('day');
 		const bday = moment(birthday);
-		const diffDays = bday.diff(today, 'days');
-		if (diffDays < 3) return 'text-red-500';
-		if (diffDays < 10) return 'text-orange-500';
-		return 'text-green-500';
-	};
+		const nextBday = moment({ year: today.year(), month: bday.month(), day: bday.date() });
+		const diffDays = nextBday.diff(today, 'days');
+		if (diffDays < 3) {
+			return 'text-red-500';
+		} else if (diffDays < 10) {
+			return 'text-orange-500';
+		} else {
+			return 'text-green-500';
+		}
+	}
 
 	return (
 		<div className="w-auto h-auto bg-white p-4 rounded border border-gray-200">
@@ -39,7 +44,6 @@ const Notification = () => {
 						<div className="w-10 h-10 min-w-[2.5rem] bg-gray-200 rounded-sm"></div>
 						<div className="ml-4 flex-1">
 							<p className="text-sm text-gray-800">{notify.firstName} {notify.lastName}</p>
-							{/* Cập nhật span để hiển thị ngày sinh theo định dạng dd-MM-yyyy và áp dụng màu sắc dựa trên điều kiện */}
 							<span
 								className={classNames(
 									getBirthdayClass(notify.birthday),

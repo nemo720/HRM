@@ -29,34 +29,28 @@ const TablePayroll = () => {
       cell: (info) => <p>{info.getValue()}</p>,
       header: () => <span>Last Name</span>,
     }),
+    columnHelper.accessor("ethnicity", {
+      cell: (info) => <p>{info.getValue()}</p>,
+      header: () => <span>Ethnicity</span>,
+    }),
     columnHelper.accessor("employmentStatus", {
       cell: (info) => <p>{info.getValue()}</p>,
       header: () => <span>Employment Status</span>,
     }),
     columnHelper.accessor("benefitPlans.deductable", {
-      cell: (info) => <p>{"$" + info.getValue()}</p>,
-      header: () => <span>Benefit Plans</span>,
+      cell: (info) => <p>${info.getValue()}</p>,
+      header: () => <span>Benefits</span>,
     }),
     columnHelper.accessor("payRates.payAmount", {
-      cell: (info) => <p>{"$" + info.getValue()}</p>,
+      cell: (info) => <p>${info.getValue()}</p>,
       header: () => <span>Earnings</span>,
+    }),
+    columnHelper.accessor("benefitPlans.deductable", {
+      cell: (info) => <p>${info.getValue() + info.row.original.payRates.payAmount}</p>,
+      header: () => <span>Total</span>,
     }),
   ];
   const [data, setData] = useState(() => []);
-  useEffect(() => {
-    listEmployees()
-      .then((response) => {
-        // Lọc ra những người không phải là nhân viên
-        const filteredData = response.data.filter(
-          (employee) => employee.idEmployee !== 0
-        );
-        setData(filteredData);
-        console.log(filteredData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
 
@@ -78,11 +72,95 @@ const TablePayroll = () => {
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
-  const [selectedValue, setSelectedValue] = useState(null);
-  const handleSort = (e) => {
-    setSelectedValue(e.target.value);
-  };
+  const [selectedEmpStatus, setSelectedEmpStatus] = useState(null);
+  const [selectedEthnicity, setSelectedEthnicity] = useState(null);
+  const handleSortEmpStatus = (e) => {
+    const value = e.target.value;
+    setSelectedEmpStatus(value);
+    if (value === 'fullTime') {
+      listEmployees().then((response) => {
+        const filteredData = response.data.filter(employee => employee.employmentStatus === 'Fulltime  ');
+        setData(filteredData);
+      }).catch((error) => {
+        console.log(error);
+      });
+    } else if (value === 'partTime') {
+      listEmployees().then((response) => {
+        const filteredData = response.data.filter(employee => employee.employmentStatus === 'Parttime  ');
+        setData(filteredData);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  }
+  const handleSortEthnicity = (e) => {
+    const value = e.target.value;
+    setSelectedEthnicity(value);
+    if (value === 'British') {
+      listEmployees().then((response) => {
+        const filteredData = response.data.filter(employee => employee.ethnicity === 'British   ');
+        setData(filteredData);
+      }).catch((error) => {
+        console.log(error);
+      });
+    } else if (value === 'Canadian') {
+      listEmployees().then((response) => {
+        const filteredData = response.data.filter(employee => employee.ethnicity === 'Canadian  ');
+        setData(filteredData);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+    else if (value === 'Latino') {
+      listEmployees().then((response) => {
+        const filteredData = response.data.filter(employee => employee.ethnicity === 'Latino    ');
+        setData(filteredData);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+    else if (value === 'American') {
+      listEmployees().then((response) => {
+        const filteredData = response.data.filter(employee => employee.ethnicity === 'American  ');
+        setData(filteredData);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  }
+  useEffect(() => {
+    listEmployees()
+        .then((response) => {
+          let filteredData = response.data.filter(
+              (employee) => employee.idEmployee !== 0
+          );
+          if (selectedEmpStatus) {
+            filteredData = filteredData.filter((employee) =>
+                selectedEmpStatus === 'fullTime'
+                    ? employee.employmentStatus === 'Fulltime  '
+                    : selectedEmpStatus === 'partTime'
+                        ? employee.employmentStatus === 'Parttime  '
+                        : true // keep the employee if no match
+            );
+          }
 
+          if (selectedEthnicity) {
+            filteredData = filteredData.filter((employee) =>
+                selectedEthnicity === 'British'
+                    ? employee.ethnicity === 'British   '
+                    : selectedEthnicity === 'Canadian'
+                        ? employee.ethnicity === 'Canadian  '
+                        : selectedEthnicity === 'Latino'
+                            ? employee.ethnicity === 'Latino    '
+                            : employee.ethnicity === 'American  '
+            );
+          }
+          setData(filteredData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }, [selectedEmpStatus, selectedEthnicity]);
   return (
     <div className="p-1 max-w-6xl mx-auto text-black">
       <div className="flex justify-between mb-2 flex-row-reverse ">
@@ -99,27 +177,27 @@ const TablePayroll = () => {
           <select
             id="sort-time"
             name="sortTime" // Add the name attribute to match the state key
-            value={selectedValue} // Set the selected value based on formData
-            onChange={handleSort}
+            value={selectedEmpStatus} // Set the selected value based on formData
+            onChange={handleSortEmpStatus}
             className=" w-auto  rounded-md  px-3 py-2 border "
         
           >
-          <option value="" disabled selected>Sort by time</option>
+          <option value="" disabled selected>Sort by Emp Status</option>
             <option  value="fullTime">Sort by full time</option>
             <option value="partTime">Sort by part time</option>
           </select>
           <select
             id="sort-ethnicity"
             name="sortEthnicity" // Add the name attribute to match the state key
-            value={selectedValue} // Set the selected value based on formData
-            onChange={handleSort}
+            value={selectedEthnicity} // Set the selected value based on formData
+            onChange={handleSortEthnicity}
             className=" w-auto  rounded-md  px-3 py-2 border "
           >
-          <option value="" disabled selected>Sort by ethnicity</option>
-            <option value="british">British</option>
-            <option value="canadian">Canadian</option>
-            <option value="latino">Latino</option>
-            <option value="american">American</option>
+          <option value="" disabled selected>Sort by Ethnicity</option>
+            <option value="British">British</option>
+            <option value="Canadian">Canadian</option>
+            <option value="Latino">Latino</option>
+            <option value="American">American</option>
           </select>
         </div>
       </div>

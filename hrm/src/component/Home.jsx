@@ -62,7 +62,7 @@ export const Home = () => {
 					<CircleDollarSign className="text-2xl text-white" />
 				</div>
 				<div className="pl-5">
-					<span className="text-sm text-gray-500 font-semibold">Average benefits plan</span>
+					<span className="text-sm text-gray-500 font-semibold">Average benefits</span>
 					<div className="flex items-center">
 						<strong className="text-xl text-gray-700 font-semibold">{`$${employeeData.averageBenefits}`}</strong>
 					</div>

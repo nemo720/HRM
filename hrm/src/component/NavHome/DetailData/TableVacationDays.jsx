@@ -37,7 +37,7 @@ const TableVacationDays = () => {
     const [data, setData] = useState(() => []);
     /*useEffect(() => {
         listEmployees().then((response) => {
-            console.log(response.data); // Thêm dòng này
+            console.log(response.data);
             setData(response.data);
         }).catch((error) => {
             console.log("Fetching data failed:", error);

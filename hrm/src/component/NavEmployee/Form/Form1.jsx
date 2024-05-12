@@ -1,6 +1,6 @@
 import { getEmployee } from "@/services/EmployeeService";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+
 export const Form1 = ({ formData, setFormData }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,11 +17,7 @@ export const Form1 = ({ formData, setFormData }) => {
     }
     return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>;
   }
-  const [selectedGender, setSelectedGender] = useState(null);
 
-  const handleGenderChange = (event) => {
-    setSelectedGender(event.target.value);
-  };
   return (
     <div className="w-full h-full flex flex-col ">
       <div className="w-full flex-[1] flex items-center  box-border">
@@ -113,21 +109,21 @@ export const Form1 = ({ formData, setFormData }) => {
               <div className="w-[80%]  rounded-md px-3 py-2 flex justify-around">
                 <label className="gap-2 flex">
                   <input
-                    type="radio"
-                    name="gender"
-                    value="male"
-                    checked={selectedGender === "male"}
-                    onChange={handleGenderChange}
+                      type="radio"
+                      id="gender-male"
+                      name="gender"
+                      value="true"
+                      onChange={handleChange}
                   />
                   Male
                 </label>
                 <label className="gap-2 flex">
                   <input
-                    type="radio"
-                    name="gender"
-                    value="female"
-                    checked={selectedGender === "female"}
-                    onChange={handleGenderChange}
+                      type="radio"
+                      id="gender-female"
+                      name="gender"
+                      value="false"
+                      onChange={handleChange}
                   />
                   Female
                 </label>

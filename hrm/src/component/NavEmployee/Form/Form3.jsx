@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { getEmployee } from "@/services/EmployeeService.js";
-import { useState } from "react";
+import { create } from "../HandleEmployee.jsx";
+
 export const Form3 = ({ formData, setFormData }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -10,20 +11,26 @@ export const Form3 = ({ formData, setFormData }) => {
   if (id) {
     employee = getEmployee(id);
   }
-  function pageTitle() {
-    if (employee) {
-      return <h1 className="text-xl  text-[#237395] ml-6">Edit Employee</h1>;
+  function pageTitle(){
+    if (employee){
+      return <h1 className="text-xl  text-[#237395] ml-6">Edit Employee</h1>
     }
-    return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>;
+    return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>
   }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    const obj = {
+      ...formData, payRates: JSON.parse(formData.payRates), benefitPlans: JSON.parse(formData.benefitPlans)
+    }
+    console.log("hi")
+    console.log(obj)
+    if('form' in obj){
+      delete obj.form;
+    }
+    create(obj);
   };
-  const [selectedStatus, setSelectedStatus] = useState(null);
-  const handleStatusChange = (event) => {
-    setSelectedStatus(event.target.value);
-  };
+
   return (
     <div className="w-full h-full flex flex-col ">
       <div className="w-full flex-[1] flex items-center  box-border">
@@ -74,26 +81,24 @@ export const Form3 = ({ formData, setFormData }) => {
                 className="flex  mb-2 w-[80%] gap-1"
               >
                 {" "}
-                Sharehoder Status <p className="text-red-600">*</p>
+                Shareholder Status <p className="text-red-600">*</p>
               </label>
               <div className="w-[80%]  rounded-md px-3 py-2 flex justify-around">
                 <label className="gap-2 flex">
                   <input
-                    type="radio"
-                    name="shareholderStatus"
-                    value="yes"
-                    checked={selectedStatus === "yes"}
-                    onChange={handleStatusChange}
+                      type="radio"
+                      name="shareholderStatus"
+                      value="true"
+                      onChange={handleChange}
                   />
                   Yes
                 </label>
                 <label className="gap-2 flex">
                   <input
-                    type="radio"
-                    name="shareholderStatus"
-                    value="no"
-                    checked={selectedStatus === "no"}
-                    onChange={handleStatusChange}
+                      type="radio"
+                      name="shareholderStatus"
+                      value="false"
+                      onChange={handleChange}
                   />
                   No
                 </label>
@@ -171,15 +176,15 @@ export const Form3 = ({ formData, setFormData }) => {
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
-                htmlFor="termination-date "
+                htmlFor="termination-date"
                 className="flex  mb-2 w-[80%] gap-1"
               >
                 Termination Date <p className="text-red-600">*</p>
               </label>
               <input
                 type="date"
-                id="termination-date "
-                name="terminationDate "
+                id="termination-date"
+                name="terminationDate"
                 value={formData.terminationDate}
                 onChange={handleChange}
                 className="w-[80%] border rounded-md px-3 py-2"

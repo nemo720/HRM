@@ -67,7 +67,7 @@ const TableEmployee = () => {
     }),
     columnHelper.accessor(" ", {
       cell: (info) => (
-        <Link to={`/update/${info.row.original.idEmployee}`}>
+        <Link to={`/update/${info.row.original.id}`}>
           <FilePenLine className=" text-blue-500  hover:scale-125" />
         </Link>
       ),
@@ -119,7 +119,22 @@ const TableEmployee = () => {
   const [selectedValue, setSelectedValue] = useState(null);
   const handleSort = (e) => {
     setSelectedValue(e.target.value);
-  };
+    if (e.target.value === 'male') {
+      listEmployees().then((response) => {
+        const filteredData = response.data.filter(employee => employee.gender === true);
+        setData(filteredData);
+      }).catch((error) => {
+        console.log(error);
+      });
+    } else if (e.target.value === 'female') {
+      listEmployees().then((response) => {
+        const filteredData = response.data.filter(employee => employee.gender === false);
+        setData(filteredData);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  }
 
   return (
     <div className="p-1 max-w-6xl mx-auto text-black ">
@@ -141,16 +156,17 @@ const TableEmployee = () => {
           Create
         </a>
           <select
-            id="sort-gender"
-            name="sortGender" // Add the name attribute to match the state key
-            value={selectedValue} // Set the selected value based on formData
-            onChange={handleSort}
-            className=" w-auto  rounded-md  px-3 py-2 border "
+              id="sort-gender"
+              name="sortGender" // Add the name attribute to match the state key
+              value={selectedValue} // Set the selected value based on formData
+              onChange={handleSort}
+              className=" w-auto  rounded-md  px-3 py-2 border "
           >
+            <option value="" disabled selected>Sort by Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
-         
+
         </div>
 
       </div>

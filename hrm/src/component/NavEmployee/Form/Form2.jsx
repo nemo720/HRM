@@ -1,6 +1,13 @@
 import { useParams } from "react-router-dom";
 import { getEmployee } from "@/services/EmployeeService.js";
-export const Form2 = ({ formData, setFormData }) => {
+
+export const  Form2 =({ formData, setFormData, payRates ,benefitPlans}) => {
+  if(!(typeof formData.payRates === 'string')){
+    formData = {...formData, payRates: JSON.stringify(payRates[0])}
+  }
+  if(!(typeof formData.benefitPlans === 'string')){
+    formData = {...formData, benefitPlans: JSON.stringify(benefitPlans[0])}
+  }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -9,12 +16,11 @@ export const Form2 = ({ formData, setFormData }) => {
   if (id) {
     employee = getEmployee(id);
   }
-
-  function pageTitle() {
-    if (employee) {
-      return <h1 className="text-xl  text-[#237395] ml-6">Edit Employee</h1>;
+  function pageTitle(){
+    if (employee){
+      return <h1 className="text-xl  text-[#237395] ml-6">Edit Employee</h1>
     }
-    return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>;
+    return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>
   }
   return (
     <div className="w-full h-full flex flex-col ">
@@ -151,16 +157,16 @@ export const Form2 = ({ formData, setFormData }) => {
 
             <div className="flex flex-col justify-center items-center">
               <label htmlFor="payrate" className="flex  mb-2 w-[80%] gap-1">
-                Payrate <p className="text-red-600">*</p>
+                Pay rate <p className="text-red-600">*</p>
               </label>
               <input
                 type="number"
-                id="payrate"
-                name="payrate"
-                value={formData.driversLicense}
+                id="payRate"
+                name="payRate"
+                value={formData.payRate}
                 onChange={handleChange}
                 className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Payrate"
+                placeholder="PayRate"
               />
             </div>
             <div className="flex flex-col justify-center items-center">
