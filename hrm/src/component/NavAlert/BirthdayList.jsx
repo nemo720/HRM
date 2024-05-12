@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {listBirthDay} from "@/services/BirthdayService.js";
 import {format, parseISO} from "date-fns";
 

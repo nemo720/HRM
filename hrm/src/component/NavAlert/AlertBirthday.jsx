@@ -1,4 +1,3 @@
-import AnniversaryList from "@/component/NavAlert/AnniversaryList.jsx";
 import BirthdayList from "@/component/NavAlert/BirthdayList.jsx";
 
 export const AlertBirthday = () => {

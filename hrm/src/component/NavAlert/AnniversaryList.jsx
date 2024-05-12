@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {listAnniversary} from "@/services/AnniversaryService.jsx";
 import {format, parseISO} from "date-fns";
 
