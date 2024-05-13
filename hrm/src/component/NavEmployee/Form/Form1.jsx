@@ -1,9 +1,15 @@
 import { getEmployee } from "@/services/EmployeeService";
 import { useParams } from "react-router-dom";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 export const Form1 = ({ formData, setFormData }) => {
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target) {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    } else {
+      console.error('Event target is undefined');
+    }
   };
   const { id } = useParams();
   let employee;
@@ -17,89 +23,70 @@ export const Form1 = ({ formData, setFormData }) => {
     }
     return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>;
   }
-
+  const validateSchema = {
+    idEmployee: Yup.string().required(),
+    firstName: Yup.string().required(),
+    lastName: Yup.string().required(),
+    address1: Yup.string().required(),
+    phoneNumber: Yup.string().required(),
+    birthday: Yup.date().required(),
+    email: Yup.string().email().required(),
+    ethnicity: Yup.string().required(),
+  }
   return (
     <div className="w-full h-full flex flex-col ">
       <div className="w-full flex-[1] flex items-center  box-border">
         {pageTitle()}
       </div>
+      <Formik initialValues={formData} onSubmit={(values,{setSubmitting}) => {
+        console.log(values)
+        setFormData({ ...formData,...values, form: 2 });
+        setSubmitting(false);
+      }} validationSchema={Yup.object(validateSchema)}>
+        {
+          ({isSubmitting}) => (
+              <Form>
       <div className="w-full flex flex-[9] justify-center items-center">
-        <form className="w-[90%] h-full relative">
+        <div className="w-[90%] h-full relative">
           <div className="grid grid-cols-2 gap-7 ">
             {/* First Column */}
             <div className="flex flex-col justify-center items-center">
-              <label htmlFor="firt-name" className="flex  mb-2 w-[80%] gap-1">
+              <label htmlFor="first-name" className="flex  mb-2 w-[80%] gap-1">
                 First Name <p className="text-red-600">*</p>
               </label>
-              <input
-                type="text"
-                id="first-name"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="First Name"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="firstName" placeholder="First Name"/>
+              <ErrorMessage name="firstName" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label htmlFor="last-name" className="flex  mb-2 w-[80%] gap-1">
                 {" "}
                 Last Name <p className="text-red-600">*</p>
               </label>
-              <input
-                type="text"
-                id="last-name"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Last Name"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="lastName" placeholder="Last Name"/>
+              <ErrorMessage name="lastName" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
-              <label htmlFor="id-employee" className="flex  mb-2 w-[80%] gap-1">
+            <label htmlFor="id-employee" className="flex  mb-2 w-[80%] gap-1">
                 {" "}
-                Id Employee <p className="text-red-600">*</p>
+                Employee Number <p className="text-red-600">*</p>
               </label>
-              <input
-                type="number"
-                id="id-employee"
-                name="idEmployee"
-                value={formData.idEmployee}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Id Employee"
-              />
+              <Field type="number" className="w-[80%] border rounded-md px-3 py-2" name="idEmployee" placeholder="Employee Number"/>
+              <ErrorMessage name="idEmployee" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label htmlFor="address1" className="flex  mb-2 w-[80%] gap-1">
                 {" "}
                 Address 1<p className="text-red-600">*</p>
               </label>
-              <input
-                type="text"
-                id="address1"
-                name="address1"
-                value={formData.address1}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Address 1"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="address1" placeholder="Address 1"/>
+              <ErrorMessage name="address1" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label htmlFor="address2" className="flex  mb-2 w-[80%] gap-1">
                 {" "}
                 Address 2
               </label>
-              <input
-                type="text"
-                id="address2"
-                name="address2"
-                value={formData.address2}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Address 2"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="address2" placeholder="Address 2"/>
             </div>
             {/* Second Column */}
             <div className="flex flex-col justify-center items-center">
@@ -113,6 +100,7 @@ export const Form1 = ({ formData, setFormData }) => {
                       id="gender-male"
                       name="gender"
                       value="true"
+                      checked={formData.gender === "true"}
                       onChange={handleChange}
                   />
                   Male
@@ -123,6 +111,7 @@ export const Form1 = ({ formData, setFormData }) => {
                       id="gender-female"
                       name="gender"
                       value="false"
+                      checked={formData.gender === "false"}
                       onChange={handleChange}
                   />
                   Female
@@ -132,61 +121,33 @@ export const Form1 = ({ formData, setFormData }) => {
             <div className="flex flex-col justify-center items-center">
               <label
                 htmlFor="phone-number"
-                className="flex  mb-2 w-[80%] gap-1"
+              className="flex  mb-2 w-[80%] gap-1"
               >
                 Phone Number <p className="text-red-600">*</p>
               </label>
-              <input
-                type="number"
-                id="phone-number"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Phone Number"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="phoneNumber" placeholder="Phone Number"/>
+              <ErrorMessage name="phoneNumber" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label htmlFor="email" className="flex  mb-2 w-[80%] gap-1">
                 Email <p className="text-red-600">*</p>
               </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Email"
-              />
+              <Field type="email" className="w-[80%] border rounded-md px-3 py-2" name="email" placeholder="Email"/>
+              <ErrorMessage name="email" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label htmlFor="birthday" className="flex  mb-2 w-[80%] gap-1">
                 Birthday <p className="text-red-600">*</p>
               </label>
-              <input
-                type="date"
-                id="birthday"
-                name="birthday"
-                value={formData.birthday}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Birthday"
-              />
+              <Field type="date" className="w-[80%] border rounded-md px-3 py-2" name="birthday" placeholder="Birthday"/>
+              <ErrorMessage name="birthday" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label htmlFor="ethnicity" className="flex  mb-2 w-[80%] gap-1">
                 Ethnicity <p className="text-red-600">*</p>
               </label>
-              <input
-                type="text"
-                id="ethnicity"
-                name="ethnicity"
-                value={formData.ethnicity}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Ethnicity"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="ethnicity" placeholder="Ethnicity"/>
+              <ErrorMessage name="ethnicity" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
@@ -195,30 +156,31 @@ export const Form1 = ({ formData, setFormData }) => {
               >
                 Marital Status <p className="text-red-600">*</p>
               </label>
-              <select
-                id="marital-status"
-                name="maritalStatus" // Add the name attribute to match the state key
-                value={formData.maritalStatus} // Set the selected value based on formData
-                onChange={handleChange}
-                className=" w-[80%] border rounded-md  px-3 py-[9px]"
-              >
+              <Field as="select" className="w-[80%] border rounded-md  px-3 py-[9px]" name="maritalStatus">
                 <option value="Single">Single</option>
                 <option value="Couple">Couple</option>
-              </select>
+                <option value="Couple">Married</option>
+              </Field>
             </div>
             <div className="flex flex-col justify-center items-center">
-              <button
-                type="button"
-                onClick={() => setFormData({ ...formData, form: 2 })}
-                className="absolute mt-10 px-4 py-2 bg-[#CBE4EF] rounded-md right-10 active:bg-red-50 transition duration-150 ease-linear"
-              >
-                Continue
-              </button>
+              {
+                isSubmitting ? <></> : <button
+                    type="submit"
+                    className="absolute mt-10 px-4 py-2 bg-[#CBE4EF] rounded-md right-10 active:bg-red-50 transition duration-150 ease-linear"
+                >
+                  Continue
+                </button>
+              }
             </div>
           </div>
-        </form>
+        </div>
       </div>
+      </Form>
+    )
+  }
+</Formik>
     </div>
+              
   );
 };
 export default Form1;

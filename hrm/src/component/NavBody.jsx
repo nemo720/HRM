@@ -12,7 +12,7 @@ import {AlertBirthday} from "@/component/NavAlert/AlertBirthday.jsx";
 import {AlertAnniversary} from "@/component/NavAlert/AlertAnniversary.jsx";
 import {Payroll} from "@/component/Payroll.jsx";
 import HandleEmployee from "@/component/NavEmployee/HandleEmployee.jsx";
-import Form1 from "./NavEmployee/Form/Form1";
+import UpdateEmployee from "@/component/NavEmployee/UpdateEmployee.jsx";
 
 const navHead = [
   {
@@ -29,10 +29,12 @@ const navHead = [
 export const NavBody = () => {
   return (
     <div className="max-w-full w-4/5 h-full  flex items-center flex-col  ">
+
       <div
         className="w-full h-16   flex items-center gap-4
-         justify-end border-[2px] "
+         justify-end border-[2px] sticky top-0 bg-white"
       >
+
         {navHead.map((nav) => (
           <NavAccount key={nav.title} title={nav.title}>
             {nav.icon}
@@ -44,7 +46,7 @@ export const NavBody = () => {
         <Route path="/" element={<Home />} />
         <Route path="/employee" element={<Employee />} />
           <Route path="/handleEmployee" element={ <HandleEmployee/> } />
-          <Route path="/update/{id}" element={ <Form1/> } />
+          <Route path="/update/:id" element={ <UpdateEmployee/> } />
         <Route path="/payroll" element={<Payroll />} />
         <Route path="/alerts" element={<Alert />} />
             <Route path="/alerts/vacation_day" element={<AlertVacationDays />} />

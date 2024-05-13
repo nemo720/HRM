@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Form1 from "./Form/Form1";
 import Form2 from "./Form/Form2";
 import Form3 from "./Form/Form3";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 import axios from 'axios';
 
 export const HandleEmployee = () => {
@@ -35,13 +35,13 @@ export const HandleEmployee = () => {
         address2: "",
         city: "",
         country: "",
-        zip: 12345,
-        gender: "1",
+        zip: 0,
+        gender: "true",
         email: "",
         phoneNumber: "",
-        maritalStatus: "",
+        maritalStatus: "Single",
         ethnicity: "",
-        shareholderStatus: "1",
+        shareholderStatus: "false",
         benefitPlans: {
             benefitPlanId: 1,
             planName: "",
@@ -57,12 +57,10 @@ export const HandleEmployee = () => {
         lastReviewDate: "",
         daysWorkingPerMonth: "",
     });
-
     useEffect(() => {
         findAllPayRates();
         findAllBenefitPlans();
     }, [formData]);
-
     const findAllPayRates = async () => {
         try {
             let temp = await axios.get("http://localhost:8080/api/payRates/list");
@@ -105,7 +103,7 @@ export const create = async (formData) => {
         })
         setTimeout(() => {
             window.location.href = "/employee";
-        }, 2100);
+        }, 2500);
     }catch (e){
         console.log(e);
     }

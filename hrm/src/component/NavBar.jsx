@@ -28,7 +28,7 @@ const navContent = [
 ];
 export const NavBar = () => {
   return (
-    <div className=" w-1/5 bg-white-400 border-2 flex items-center flex-col ">
+    <div className=" w-1/5 bg-white-400 border-2 flex items-center flex-col sticky top-0">
       <div className=" w-[70%] h-[150px] mt-6 bg-white-100 ">
         <img src={Logo} alt="Logo" className="w-full h-full px-3" />
       </div>

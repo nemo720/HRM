@@ -140,7 +140,7 @@ const TablePayroll = () => {
                     ? employee.employmentStatus === 'Fulltime  '
                     : selectedEmpStatus === 'partTime'
                         ? employee.employmentStatus === 'Parttime  '
-                        : true // keep the employee if no match
+                        : true
             );
           }
 
@@ -176,13 +176,13 @@ const TablePayroll = () => {
         <div className="w-auto h-full flex gap-6 "> 
           <select
             id="sort-time"
-            name="sortTime" // Add the name attribute to match the state key
-            value={selectedEmpStatus} // Set the selected value based on formData
+            name="sortTime"
+            value={selectedEmpStatus}
             onChange={handleSortEmpStatus}
             className=" w-auto  rounded-md  px-3 py-2 border "
         
           >
-          <option value="" disabled selected>Sort by Emp Status</option>
+          <option value="sortEmpStatus" disabled selected>Sort by Emp Status</option>
             <option  value="fullTime">Sort by full time</option>
             <option value="partTime">Sort by part time</option>
           </select>
@@ -193,7 +193,7 @@ const TablePayroll = () => {
             onChange={handleSortEthnicity}
             className=" w-auto  rounded-md  px-3 py-2 border "
           >
-          <option value="" disabled selected>Sort by Ethnicity</option>
+          <option value="sortEthnicity" disabled selected>Sort by Ethnicity</option>
             <option value="British">British</option>
             <option value="Canadian">Canadian</option>
             <option value="Latino">Latino</option>

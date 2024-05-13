@@ -1,10 +1,16 @@
 import { useParams } from "react-router-dom";
 import { getEmployee } from "@/services/EmployeeService.js";
 import { create } from "../HandleEmployee.jsx";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 export const Form3 = ({ formData, setFormData }) => {
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target) {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    } else {
+      console.error('Event target is undefined');
+    }
   };
   const { id } = useParams();
   let employee;
@@ -17,11 +23,11 @@ export const Form3 = ({ formData, setFormData }) => {
     }
     return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>
   }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     const obj = {
-      ...formData, payRates: JSON.parse(formData.payRates), benefitPlans: JSON.parse(formData.benefitPlans)
+      ...formData, 
+      payRates: formData.payRates ? JSON.parse(formData.payRates) : {}, 
+      benefitPlans: formData.benefitPlans ? JSON.parse(formData.benefitPlans) : {}
     }
     console.log("hi")
     console.log(obj)
@@ -33,16 +39,36 @@ export const Form3 = ({ formData, setFormData }) => {
         .catch(err => console.log(err));
   };
 
+  const validateSchema = {
+    middleInitial: Yup.number().required(),
+    driversLicense: Yup.string().required(),
+    employmentCode: Yup.number().required(),
+    employmentStatus: Yup.string().required(),
+    hireDateForWorking: Yup.date().required(),
+    workersCompCode: Yup.string().required(),
+    terminationDate: Yup.date().required(),
+    rehireDateForWorking: Yup.date().required(),
+    lastReviewDate: Yup.date().required(),
+    daysWorkingPerMonth: Yup.number().required(),
+  }
   return (
     <div className="w-full h-full flex flex-col ">
       <div className="w-full flex-[1] flex items-center  box-border">
         {pageTitle()}
       </div>
+      <Formik initialValues={formData} onSubmit={(values,{setSubmitting}) => {
+        console.log(values)
+        setFormData({ ...formData,...values});
+        handleSubmit({ ...formData,...values});
+        setSubmitting(false);
+      }} validationSchema={Yup.object(validateSchema)}>
+        {
+          ({isSubmitting}) => (
+              <Form>
       <div className="w-full flex flex-[9] justify-center items-center">
-        <form onSubmit={handleSubmit} className="w-[90%] h-full   ">
+        <div className="w-[90%] h-full   ">
           <div className="grid grid-cols-2 gap-7 ">
             {/* First Column */}
-
             <div className="flex flex-col justify-center items-center">
               <label
                 htmlFor="middle-initial"
@@ -50,15 +76,8 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Middle Initial <p className="text-red-600">*</p>
               </label>
-              <input
-                type="text"
-                id="middle-initial"
-                name="middleInitial"
-                value={formData.middleInitial}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="MiddleInitial"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="middleInitial" placeholder="Middle Initial"/>
+              <ErrorMessage name="middleInitial" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
@@ -67,15 +86,8 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Drivers License <p className="text-red-600">*</p>
               </label>
-              <input
-                type="text"
-                id="drivers-license"
-                name="driversLicense"
-                value={formData.driversLicense}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Drivers License"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="driversLicense" placeholder="Drivers License"/>
+              <ErrorMessage name="driversLicense" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
@@ -91,6 +103,7 @@ export const Form3 = ({ formData, setFormData }) => {
                       type="radio"
                       name="shareholderStatus"
                       value="true"
+                      checked={formData.shareholderStatus === "true"}
                       onChange={handleChange}
                   />
                   Yes
@@ -100,6 +113,7 @@ export const Form3 = ({ formData, setFormData }) => {
                       type="radio"
                       name="shareholderStatus"
                       value="false"
+                      checked={formData.shareholderStatus === "false"}
                       onChange={handleChange}
                   />
                   No
@@ -114,15 +128,8 @@ export const Form3 = ({ formData, setFormData }) => {
                 {" "}
                 Employment Code <p className="text-red-600">*</p>
               </label>
-              <input
-                type="text"
-                id="employment-code"
-                name="employmentCode"
-                value={formData.employmentCode}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Employment Code"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="employmentCode" placeholder="Employment Code"/>
+              <ErrorMessage name="employmentCode" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
@@ -131,15 +138,8 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Employment Status <p className="text-red-600">*</p>
               </label>
-              <input
-                type="text"
-                id="employment-status"
-                name="employmentStatus"
-                value={formData.employmentStatus}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Employment Status"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="employmentStatus" placeholder="Employment Status"/>
+              <ErrorMessage name="employmentStatus" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             {/* Second Column */}
             <div className="flex flex-col justify-center items-center">
@@ -149,15 +149,8 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Hire Date For Working <p className="text-red-600">*</p>
               </label>
-              <input
-                type="date"
-                id="hire-date-for-working"
-                name="hireDateForWorking"
-                value={formData.hireDateForWorking}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Hire Date For Working"
-              />
+              <Field type="date" className="w-[80%] border rounded-md px-3 py-2" name="hireDateForWorking" placeholder="Hire Date For Working"/>
+              <ErrorMessage name="hireDateForWorking" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
@@ -166,15 +159,8 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Workers Comp Code <p className="text-red-600">*</p>
               </label>
-              <input
-                type="text"
-                id="workers-comp-code"
-                name="workersCompCode"
-                value={formData.workersCompCode}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Workers Comp Code"
-              />
+              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="workersCompCode" placeholder="Workers Comp Code"/>
+              <ErrorMessage name="workersCompCode" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
@@ -183,15 +169,8 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Termination Date <p className="text-red-600">*</p>
               </label>
-              <input
-                type="date"
-                id="termination-date"
-                name="terminationDate"
-                value={formData.terminationDate}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Termination Date"
-              />
+              <Field type="date" className="w-[80%] border rounded-md px-3 py-2" name="terminationDate" placeholder="Termination Date"/>
+              <ErrorMessage name="terminationDate" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
@@ -200,15 +179,8 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Rehire Date For Working <p className="text-red-600">*</p>
               </label>
-              <input
-                type="date"
-                id="rehire-date-for-working"
-                name="rehireDateForWorking"
-                value={formData.rehireDateForWorking}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Rehire Date For Working"
-              />
+              <Field type="date" className="w-[80%] border rounded-md px-3 py-2" name="rehireDateForWorking" placeholder="Rehire Date For Working"/>
+              <ErrorMessage name="rehireDateForWorking" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
@@ -217,15 +189,8 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Last Review Date <p className="text-red-600">*</p>
               </label>
-              <input
-                type="date"
-                id="last-review-date"
-                name="lastReviewDate"
-                value={formData.lastReviewDate}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Last Review Date"
-              />
+              <Field type="date" className="w-[80%] border rounded-md px-3 py-2" name="lastReviewDate" placeholder="Last Review Date"/>
+              <ErrorMessage name="lastReviewDate" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex flex-col justify-center items-center">
               <label
@@ -234,15 +199,8 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Days Working Per Month <p className="text-red-600">*</p>
               </label>
-              <input
-                type="number"
-                id="days-working-per-month"
-                name="daysWorkingPerMonth"
-                value={formData.daysWorkingPerMonth}
-                onChange={handleChange}
-                className="w-[80%] border rounded-md px-3 py-2"
-                placeholder="Days Working Per Month "
-              />
+              <Field type="number" className="w-[80%] border rounded-md px-3 py-2" name="daysWorkingPerMonth" placeholder="Days Working Per Month"/>
+              <ErrorMessage name="daysWorkingPerMonth" component="span" style={{color: "red"}}></ErrorMessage>
             </div>
             <div className="flex  justify-between px-4 items-end">
               <button
@@ -252,16 +210,22 @@ export const Form3 = ({ formData, setFormData }) => {
               >
                 Return
               </button>
+              {isSubmitting ? <></> :
               <button
                 type="submit"
                 className=" w-28  px-4 py-2 bg-[#218FBE] text-black  active:bg-red-50 transition duration-150 ease-linear  rounded-md hover:scale-110 hover:bg-green-100"
               >
                 Create
               </button>
+              }
             </div>
           </div>
-        </form>
+        </div>
       </div>
+              </Form>
+          )
+        }
+      </Formik>
     </div>
   );
 };
