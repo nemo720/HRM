@@ -144,7 +144,7 @@ export function UpdateEmployee(){
 
     return employee.firstName !== "" ? (
         <div>
-            <h1>update employee</h1>
+            <h1>Update employee</h1>
             <Formik initialValues={employee} onSubmit={(values,{setSubmitting}) => {
                 setSubmitting(false);
                 console.log(values);
@@ -156,7 +156,7 @@ export function UpdateEmployee(){
             }} validationSchema={Yup.object(validateSchema)}>
                 {
                     ({isSubmitting}) => (
-                        <Form className="grid grid-cols-3 gap-x-2 items-center ">
+                        <Form className="grid grid-cols-3 gap-x-10 items-center ">
                             <div className="mb-3">
                                 <label className="form-label">idEmployee</label>
                                 <Field type="number" className="form-control" name="idEmployee" placeholder="idEmployee"/>
