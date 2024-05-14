@@ -162,396 +162,415 @@ export function UpdateEmployee() {
   console.log(employee);
 
   return employee.firstName !== "" ? (
-    <div className="flex flex-col">
-      <h1 className="px-2 py-3 text-2xl text-sky-500">Update employee</h1>
-      <Formik
-        initialValues={employee}
-        onSubmit={(values, { setSubmitting }) => {
-          setSubmitting(false);
-          console.log(values);
-          const obj = {
-            ...values,
-            payRates: JSON.parse(values.payRates),
-            benefitPlans: JSON.parse(values.benefitPlans),
-          };
-          console.log(obj);
-          handleUpdate(obj);
-        }}
-        validationSchema={Yup.object(validateSchema)}
-      >
-        {({ isSubmitting }) => (
-          <Form className="grid grid-cols-3 gap-x-10 items-center ">
-            <div className="mb-3">
-              <label className="form-label">idEmployee</label>
-              <Field
-                type="number"
-                className="form-control"
-                name="idEmployee"
-                placeholder="idEmployee"
-              />
-              <ErrorMessage
-                name="idEmployee"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">firstName</label>
-              <Field type="text" className="form-control" name="firstName" />
-              <ErrorMessage
-                name="firstName"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3 ">
-              <label className="form-label flex">middleInitial</label>
-              <Field
-                type="text"
-                className="form-control"
-                name="middleInitial"
-              />
-              <ErrorMessage
-                name="middleInitial"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">lastName</label>
-              <Field type="text" className="form-control" name="lastName" />
-              <ErrorMessage
-                name="lastName"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">payRate</label>
-              <Field type="text" className="form-control" name="payRate" />
-              <ErrorMessage
-                name="payRate"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">vacationDays</label>
-              <Field
-                type="number"
-                className="form-control"
-                name="vacationDays"
-              />
-              <ErrorMessage
-                name="vacationDays"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">paidToDate</label>
-              <Field type="number" className="form-control" name="paidToDate" />
-              <ErrorMessage
-                name="paidToDate"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">paidLastYear</label>
-              <Field
-                type="number"
-                className="form-control"
-                name="paidLastYear"
-              />
-              <ErrorMessage
-                name="paidLastYear"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">birthday</label>
-              <Field
-                type="datetime-local"
-                className="form-control"
-                name="birthday"
-              />
-              <ErrorMessage
-                name="birthday"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">ssnP</label>
-              <Field type="text" className="form-control" name="ssnP" />
-              <ErrorMessage
-                name="ssnP"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">ssnE</label>
-              <Field type="number" className="form-control" name="ssnE" />
-              <ErrorMessage
-                name="ssnE"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">driversLicense</label>
-              <Field
-                type="text"
-                className="form-control"
-                name="driversLicense"
-              />
-              <ErrorMessage
-                name="driversLicense"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">address1</label>
-              <Field type="text" className="form-control" name="address1" />
-              <ErrorMessage
-                name="address1"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">address2</label>
-              <Field type="text" className="form-control" name="address2" />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">city</label>
-              <Field type="text" className="form-control" name="city" />
-              <ErrorMessage
-                name="city"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">country</label>
-              <Field type="text" className="form-control" name="country" />
-              <ErrorMessage
-                name="country"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">zip</label>
-              <Field type="number" className="form-control" name="zip" />
-              <ErrorMessage
-                name="zip"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Gender</label>
-              <br />
-              <label>
-                <Field
-                  type="radio"
-                  name="gender"
-                  value="true"
-                  checked={employee.gender === true}
-                />
-                Male
-              </label>
-              <label style={{ marginLeft: "10px" }}>
-                <Field
-                  type="radio"
-                  name="gender"
-                  value="false"
-                  checked={employee.gender === false}
-                />
-                Female
-              </label>
-              <ErrorMessage
-                name="gender"
-                component="span"
-                style={{ color: "red" }}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">email</label>
-              <Field type="text" className="form-control" name="email" />
-              <ErrorMessage
-                name="email"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">phone number</label>
-              <Field type="text" className="form-control" name="phoneNumber" />
-              <ErrorMessage
-                name="phoneNumber"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Marital Status</label>
-              <Field as="select" className="form-select" name="maritalStatus">
-                <option value="Single">Single</option>
-                <option value="Couple">Couple</option>
-              </Field>
-              <ErrorMessage
-                name="maritalStatus"
-                component="span"
-                style={{ color: "red" }}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">ethnicity</label>
-              <Field type="text" className="form-control" name="ethnicity" />
-              <ErrorMessage
-                name="ethnicity"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">shareholderStatus</label>
-              <br />
-              <label>
-                <Field
-                  type="radio"
-                  name="shareholderStatus"
-                  value="true"
-                  checked={employee.shareholderStatus === true}
-                />
-                Yes
-              </label>
-              <label style={{ marginLeft: "10px" }}>
-                <Field
-                  type="radio"
-                  name="shareholderStatus"
-                  value="false"
-                  checked={employee.shareholderStatus === false}
-                />
-                No
-              </label>
-              <ErrorMessage
-                name="gender"
-                component="span"
-                style={{ color: "red" }}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">payRates</label>
-              <Field as="select" className="form-select" name="payRates">
-                {payRates?.map((item) => (
-                  <option key={JSON.parse(item).idPayRate} value={item}>
-                    {JSON.parse(item).payRateName}
-                  </option>
-                ))}
-              </Field>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">benefitPlans</label>
-              <Field as="select" className="form-select" name="benefitPlans">
-                {benefitPlans?.map((item) => (
-                  <option key={JSON.parse(item).benefitPlanId} value={item}>
-                    {JSON.parse(item).planName}
-                  </option>
-                ))}
-              </Field>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">employmentCode</label>
-              <Field
-                type="text"
-                className="form-control"
-                name="employmentCode"
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">employmentStatus</label>
-              <Field
-                type="text"
-                className="form-control"
-                name="employmentStatus"
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">hireDateForWorking</label>
-              <Field
-                type="datetime-local"
-                className="form-control"
-                name="hireDateForWorking"
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">workersCompCode</label>
-              <Field
-                type="text"
-                className="form-control"
-                name="workersCompCode"
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">terminationDate</label>
-              <Field
-                type="datetime-local"
-                className="form-control"
-                name="terminationDate"
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">rehireDateForWorking</label>
-              <Field
-                type="datetime-local"
-                className="form-control"
-                name="rehireDateForWorking"
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">lastReviewDate</label>
-              <Field
-                type="datetime-local"
-                className="form-control"
-                name="lastReviewDate"
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">daysWorkingPerMonth</label>
-              <Field
-                type="number"
-                className="form-control"
-                name="daysWorkingPerMonth"
-              />
-              <ErrorMessage
-                name="daysWorkingPerMonth"
-                component="span"
-                style={{ color: "red" }}
-              ></ErrorMessage>
-            </div>
-            <div></div>
-            {isSubmitting ? (
-              <></>
-            ) : (
-              <div className="flex justify-end p-2 items-end">
-                <button type="submit" className="btn btn-primary ">
-                  update
-                </button>
-              </div>
-            )}
-          </Form>
-        )}
-      </Formik>
+    <div className="flex flex-col h-full">
+      <h1 className="px-2 py-3 text-2xl text-sky-500 h-[10%]">Update employee</h1>
+     <div className="h-[85%] box-border overflow-scroll p-4 border border-slate-300 bg-blue-50 rounded">
+       <Formik
+           initialValues={employee}
+           onSubmit={(values, { setSubmitting }) => {
+             setSubmitting(false);
+             console.log(values);
+             const obj = {
+               ...values,
+               payRates: JSON.parse(values.payRates),
+               benefitPlans: JSON.parse(values.benefitPlans),
+             };
+             console.log(obj);
+             handleUpdate(obj);
+           }}
+           validationSchema={Yup.object(validateSchema)}
+       >
+         {({ isSubmitting }) => (
+             <Form className="grid grid-cols-3 gap-x-10 items-center gap-y-3 ">
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">idEmployee <span className="text-red-500">*</span></label>
+                 <Field
+                     type="number"
+                     className="form-control"
+                     name="idEmployee"
+                     placeholder="idEmployee"
+                 />
+                 <ErrorMessage
+                     name="idEmployee"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">firstName <span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="firstName"/>
+                 <ErrorMessage
+                     name="firstName"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">lastName <span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="lastName"/>
+                 <ErrorMessage
+                     name="lastName"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1  ">
+                 <label className="form-label flex gap-2">middleInitial <span className="text-red-500">*</span></label>
+                 <Field
+                     type="text"
+                     className="form-control"
+                     name="middleInitial"
+                 />
+                 <ErrorMessage
+                     name="middleInitial"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">payRate <span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="payRate"/>
+                 <ErrorMessage
+                     name="payRate"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">vacation Days <span className="text-red-500">*</span></label>
+                 <Field
+                     type="number"
+                     className="form-control"
+                     name="vacationDays"
+                 />
+                 <ErrorMessage
+                     name="vacationDays"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Paid To Date <span className="text-red-500">*</span></label>
+                 <Field type="number" className="form-control" name="paidToDate"/>
+                 <ErrorMessage
+                     name="paidToDate"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Paid Last Year <span className="text-red-500">*</span></label>
+                 <Field
+                     type="number"
+                     className="form-control"
+                     name="paidLastYear"
+                 />
+                 <ErrorMessage
+                     name="paidLastYear"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Birthday<span className="text-red-500">*</span></label>
+                 <Field
+                     type="datetime-local"
+                     className="form-control"
+                     name="birthday"
+                 />
+                 <ErrorMessage
+                     name="birthday"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">ssnP<span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="ssnP"/>
+                 <ErrorMessage
+                     name="ssnP"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">ssnE<span className="text-red-500">*</span></label>
+                 <Field type="number" className="form-control" name="ssnE"/>
+                 <ErrorMessage
+                     name="ssnE"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Drivers License<span className="text-red-500">*</span></label>
+                 <Field
+                     type="text"
+                     className="form-control"
+                     name="driversLicense"
+                 />
+                 <ErrorMessage
+                     name="driversLicense"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Address 1<span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="address1"/>
+                 <ErrorMessage
+                     name="address1"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Address 2<span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="address2"/>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">City<span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="city"/>
+                 <ErrorMessage
+                     name="city"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Country<span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="country"/>
+                 <ErrorMessage
+                     name="country"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Zip<span className="text-red-500">*</span></label>
+                 <Field type="number" className="form-control" name="zip"/>
+                 <ErrorMessage
+                     name="zip"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Gender<span className="text-red-500">*</span></label>
+                 <div className="flex gap-4 justify-center py-2">
+                 <label>
+                   <Field
+                       type="radio"
+                       name="gender"
+                       value="true"
+                       checked={employee.gender === true}
+                   />
+                   Male
+                 </label>
+                 <label style={{marginLeft: "10px"}}>
+                   <Field
+                       type="radio"
+                       name="gender"
+                       value="false"
+                       checked={employee.gender === false}
+                   />
+                   Female
+                 </label>
+                 </div>
+                
+                 <ErrorMessage
+                     name="gender"
+                     component="span"
+                     style={{color: "red"}}
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Email<span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="email"/>
+                 <ErrorMessage
+                     name="email"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Phone number<span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="phoneNumber"/>
+                 <ErrorMessage
+                     name="phoneNumber"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Marital Status<span className="text-red-500">*</span></label>
+                 <Field as="select" className="form-select" name="maritalStatus">
+                   <option value="Single">Single</option>
+                   <option value="Couple">Couple</option>
+                 </Field>
+                 <ErrorMessage
+                     name="maritalStatus"
+                     component="span"
+                     style={{color: "red"}}
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Ethnicity<span className="text-red-500">*</span></label>
+                 <Field type="text" className="form-control" name="ethnicity"/>
+                 <ErrorMessage
+                     name="ethnicity"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label item-start flex gap-2">Shareholder Status<span className="text-red-500">*</span></label>
+                 <div className="flex gap-4  justify-center py-2">
+                 <label>
+                   <Field
+                       type="radio"
+                       name="shareholderStatus"
+                       value="true"
+                       checked={employee.shareholderStatus === true}
+                   />
+                   Yes
+                 </label>
+                 <label style={{marginLeft: "10px"}}>
+                   <Field
+                       type="radio"
+                       name="shareholderStatus"
+                       value="false"
+                       checked={employee.shareholderStatus === false}
+                   />
+                   No
+                 </label>
+                 </div>
+                 <ErrorMessage
+                     name="gender"
+                     component="span"
+                     style={{color: "red"}}
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Pay Rates<span className="text-red-500">*</span></label>
+                 <Field as="select" className="form-select" name="payRates">
+                   {payRates?.map((item) => (
+                       <option key={JSON.parse(item).idPayRate} value={item}>
+                         {JSON.parse(item).payRateName}
+                       </option>
+                   ))}
+                 </Field>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Benefit Plans<span className="text-red-500">*</span></label>
+                 <Field as="select" className="form-select" name="benefitPlans">
+                   {benefitPlans?.map((item) => (
+                       <option key={JSON.parse(item).benefitPlanId} value={item}>
+                         {JSON.parse(item).planName}
+                       </option>
+                   ))}
+                 </Field>
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Employment Code<span className="text-red-500">*</span></label>
+                 <Field
+                     type="text"
+                     className="form-control"
+                     name="employmentCode"
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Employment Status<span className="text-red-500">*</span></label>
+                 <Field
+                     type="text"
+                     className="form-control"
+                     name="employmentStatus"
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Hire Date For Working<span className="text-red-500">*</span></label>
+                 <Field
+                     type="datetime-local"
+                     className="form-control"
+                     name="hireDateForWorking"
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Workers Comp Code<span
+                     className="text-red-500">*</span></label>
+                 <Field
+                     type="text"
+                     className="form-control"
+                     name="workersCompCode"
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Termination Date<span
+                     className="text-red-500">*</span></label>
+                 <Field
+                     type="datetime-local"
+                     className="form-control"
+                     name="terminationDate"
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Rehire Date For Working<span
+                     className="text-red-500">*</span></label>
+                 <Field
+                     type="datetime-local"
+                     className="form-control"
+                     name="rehireDateForWorking"
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Last Review Date<span
+                     className="text-red-500">*</span></label>
+                 <Field
+                     type="datetime-local"
+                     className="form-control"
+                     name="lastReviewDate"
+                 />
+               </div>
+               <div className=" flex flex-col gap-y-1 ">
+                 <label className="form-label flex gap-2">Days Working Per Month<span
+                     className="text-red-500">*</span></label>
+                 <Field
+                     type="number"
+                     className="form-control"
+                     name="daysWorkingPerMonth"
+                 />
+                 <ErrorMessage
+                     name="daysWorkingPerMonth"
+                     component="span"
+                     style={{color: "red"}}
+                 ></ErrorMessage>
+               </div>
+               <div></div>
+               <div >
+                     
+                   </div>
+               {isSubmitting ? (
+                   <></>
+               ) : (
+                   <div className="flex justify-between p-2 items-end ">
+                    <a href="/employee"  className="rounded px-[11px] py-[7px] bg-red-400 hover:scale-110 hover:bg-red-200 hover:border-red-700 hover-border-2 ">
+                       cancel
+                     </a>
+                     <button type="submit" className="btn btn-primary hover:scale-110 ">
+                       update
+                     </button>
+                   </div>
+               )}
+
+
+             </Form>
+         )}
+       </Formik>
+     </div>
     </div>
   ) : (
-    ""
+      ""
   );
 }
+
 export default UpdateEmployee;

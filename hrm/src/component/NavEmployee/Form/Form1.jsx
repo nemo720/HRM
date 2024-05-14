@@ -159,7 +159,6 @@ export const Form1 = ({ formData, setFormData }) => {
               <Field as="select" className="w-[80%] border rounded-md  px-3 py-[9px]" name="maritalStatus">
                 <option value="Single">Single</option>
                 <option value="Couple">Couple</option>
-                <option value="Couple">Married</option>
               </Field>
             </div>
             <div className="flex flex-col justify-center items-center">

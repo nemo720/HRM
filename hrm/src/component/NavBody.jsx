@@ -1,5 +1,5 @@
 import { NavAccount } from "./NavAccount";
-import { CircleUserRound, SunMoon } from "lucide-react";
+import { CircleUserRound } from "lucide-react";
 import {Home}  from "./Home";
 import { Employee } from "./Employee";
 import { Alert } from "./Alert";
@@ -20,18 +20,14 @@ const navHead = [
     href: "/admin",
     icon: <CircleUserRound />,
   },
-  {
-    title: "",
-    href: "/mode",
-    icon: <SunMoon />,
-  },
+  
 ];
 export const NavBody = () => {
   return (
     <div className="max-w-full w-4/5 h-full  flex items-center flex-col  ">
 
       <div
-        className="w-full h-16   flex items-center gap-4
+        className="w-full h-16   flex items-center gap-4 px-8
          justify-end border-[2px] sticky top-0 bg-white"
       >
 

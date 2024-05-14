@@ -71,10 +71,10 @@ export const Home = () => {
 		</div>
       </div>
       <div className="w-full h-1/2 flex gap-10 px-5 rounded box-border">
-        <div className=" w-1/3 h-full overflow-auto rounded shadow-lg shadow-gray-400">
+        <div className=" w-1/3 h-full overflow-auto rounded shadow-md shadow-gray-400">
           <Notification />
         </div>
-        <div className=" w-2/3 h-full shadow-lg shadow-gray-400  ">
+        <div className=" w-2/3 h-full shadow-md shadow-gray-400  ">
           <TransactionChart />
         </div>
       </div>

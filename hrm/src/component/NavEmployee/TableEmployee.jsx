@@ -7,7 +7,7 @@ import {
   useReactTable,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import DebouncedInput from "./DebouncedInput.jsx";
 import { SearchIcon } from "../Icons.jsx";
 import {useEffect, useState} from "react";
@@ -18,11 +18,12 @@ import {toast} from "react-toastify";
 import Swal from 'sweetalert2';
 
 const TableEmployee = () => {
+  const navigate = useNavigate();
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (item) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: `Bạn có muốn xoá ${item.firstName}?`,
+      text: "Bạn sẽ không thể hoàn nguyên thao tác này!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -31,14 +32,12 @@ const TableEmployee = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete("http://localhost:8080/api/personal/delete/" + id);
+          await axios.delete("http://localhost:8080/api/personal/delete/" + item.id);
+          findAll();
           toast("Delete employee successful!",{
             position: "top-center",
             autoClose: 2000
           })
-          setTimeout(() => {
-            window.location.href = "/employee";
-          }, 2500);
         } catch (e) {
           console.log(e);
         }
@@ -47,7 +46,7 @@ const TableEmployee = () => {
   };
   const columnHelper = createColumnHelper();
   const columns = [
-    columnHelper.accessor('idEmployee', {
+    columnHelper.accessor('id', {
       id: 'id',
       header: () => <span>Employee Number</span>,
       cell: info => <p>{info.getValue()}</p>,
@@ -86,14 +85,17 @@ const TableEmployee = () => {
     columnHelper.accessor("  ", {
       cell: (info) => (
           <Trash
-              className="text-red-500 hover:scale-125"
-              onClick={() => handleDelete(info.row.original.id)}
+              className="text-red-500 hover:scale-125 hover:cursor-pointer"
+              onClick={() => handleDelete(info.row.original)}
           />
       ),
     }),
   ]
   const [data, setData] = useState(() => []);
   useEffect(() => {
+    findAll();
+  }, []);
+  const findAll = () => {
     listEmployees().then((response) => {
       // Lọc ra những người không phải là nhân viên
       const filteredData = response.data.filter(employee => employee.idEmployee !== 0);
@@ -101,7 +103,7 @@ const TableEmployee = () => {
     }).catch((error) => {
       console.log("Fetching data failed:", error);
     })
-  }, []);
+  }
 
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
@@ -156,19 +158,21 @@ const TableEmployee = () => {
                 placeholder="Search ..."
             />
           </div>
-          <a href="/handleEmployee"
-             className="w-auto h-full  rounded-md bg-blue-300 px-2 py-1 hover:transition hover:scale-110 hover:bg-slate-200 hover:border-blue-200 hover:border active:bg-red-200 duration-150">Create</a>
-          <select
-              id="sort-gender"
-              name="sortGender" // Add the name attribute to match the state key
-              value={selectedValue} // Set the selected value based on formData
-              onChange={handleSort}
-              className=" w-auto  rounded-md  px-3 py-2 border justify-items-center "
-          >
-            <option value="" disabled selected>Sort by Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+          <div className="flex gap-4">
+            <a href="/handleEmployee"
+               className="w-auto h-full fex  justify-center rounded-md bg-blue-300 px-2 py-1 hover:transition hover:scale-110 hover:bg-slate-200 hover:border-blue-200 hover:border active:bg-red-200 duration-150">Create</a>
+            <select
+                id="sort-gender"
+                name="sortGender" // Add the name attribute to match the state key
+                value={selectedValue} // Set the selected value based on formData
+                onChange={handleSort}
+                className=" w-auto  rounded-md  px-3 py-2 border justify-items-center "
+            >
+              <option value="" disabled selected>Sort by Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
         </div>
         <table className="border border-gray-700 w-full text-left">
           <thead className="bg-neutral-400">
