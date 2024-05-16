@@ -6,10 +6,8 @@ export const EmployeeProvider = ({ children }) => {
         totalEarnings: 0,
         totalVacationDays: 0,
         averageBenefits: 0,
-        transactions: [] // Add this line to hold filtered transaction data
+        comparisons: []
     });
-
-    // Rest of your context logic
 
     return (
         <EmployeeContext.Provider value={{ employeeData, setEmployeeData }}>

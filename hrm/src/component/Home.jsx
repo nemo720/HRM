@@ -1,6 +1,6 @@
 import { Landmark, CalendarCheck, CircleDollarSign } from "lucide-react";
 import Notification from "./NavHome/Notification";
-import TransactionChart from "./NavHome/TransactionChart";
+import ComparisonChart from "./NavHome/ComparisonChart.jsx";
 import { Link } from "react-router-dom";
 import PersonFilterButtons from "@/component/NavHome/PersonFilterButtons.jsx";
 import {useState} from "react";
@@ -64,7 +64,7 @@ export const Home = () => {
 				<div className="pl-5">
 					<span className="text-sm text-gray-500 font-semibold">Average benefits</span>
 					<div className="flex items-center">
-						<strong className="text-xl text-gray-700 font-semibold">{`$${employeeData.averageBenefits}`}</strong>
+						<strong className="text-xl text-gray-700 font-semibold">{`$${employeeData.averageBenefits.toFixed(3)}`}</strong>
 					</div>
 				</div>
 			</BoxWrapper>
@@ -75,7 +75,7 @@ export const Home = () => {
           <Notification />
         </div>
         <div className=" w-2/3 h-full shadow-md shadow-gray-400  ">
-          <TransactionChart />
+          <ComparisonChart />
         </div>
       </div>
     </div>

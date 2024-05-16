@@ -164,7 +164,7 @@ export function UpdateEmployee() {
   return employee.firstName !== "" ? (
     <div className="flex flex-col h-full">
       <h1 className="px-2 py-3 text-2xl text-sky-500 h-[10%]">Update employee</h1>
-     <div className="h-[85%] box-border overflow-scroll p-4 border border-slate-300 bg-blue-50 rounded">
+     <div className="h-[85%] box-border overflow-scroll py-4 px-16 border border-slate-300 bg-blue-50 rounded">
        <Formik
            initialValues={employee}
            onSubmit={(values, { setSubmitting }) => {
@@ -181,9 +181,9 @@ export function UpdateEmployee() {
            validationSchema={Yup.object(validateSchema)}
        >
          {({ isSubmitting }) => (
-             <Form className="grid grid-cols-3 gap-x-10 items-center gap-y-3 ">
+             <Form className="grid grid-cols-3 gap-x-20 items-center gap-y-3 ">
                <div className=" flex flex-col gap-y-1 ">
-                 <label className="form-label flex gap-2">idEmployee <span className="text-red-500">*</span></label>
+                 <label className="form-label flex gap-2">ID Employee <span className="text-red-500">*</span></label>
                  <Field
                      type="number"
                      className="form-control"
@@ -197,7 +197,7 @@ export function UpdateEmployee() {
                  ></ErrorMessage>
                </div>
                <div className=" flex flex-col gap-y-1 ">
-                 <label className="form-label flex gap-2">firstName <span className="text-red-500">*</span></label>
+                 <label className="form-label flex gap-2">First Name <span className="text-red-500">*</span></label>
                  <Field type="text" className="form-control" name="firstName"/>
                  <ErrorMessage
                      name="firstName"
@@ -206,7 +206,7 @@ export function UpdateEmployee() {
                  ></ErrorMessage>
                </div>
                <div className=" flex flex-col gap-y-1 ">
-                 <label className="form-label flex gap-2">lastName <span className="text-red-500">*</span></label>
+                 <label className="form-label flex gap-2">Last Name <span className="text-red-500">*</span></label>
                  <Field type="text" className="form-control" name="lastName"/>
                  <ErrorMessage
                      name="lastName"
@@ -215,7 +215,7 @@ export function UpdateEmployee() {
                  ></ErrorMessage>
                </div>
                <div className=" flex flex-col gap-y-1  ">
-                 <label className="form-label flex gap-2">middleInitial <span className="text-red-500">*</span></label>
+                 <label className="form-label flex gap-2">Middle Initial <span className="text-red-500">*</span></label>
                  <Field
                      type="text"
                      className="form-control"
@@ -228,7 +228,7 @@ export function UpdateEmployee() {
                  ></ErrorMessage>
                </div>
                <div className=" flex flex-col gap-y-1 ">
-                 <label className="form-label flex gap-2">payRate <span className="text-red-500">*</span></label>
+                 <label className="form-label flex gap-2">Pay Rate <span className="text-red-500">*</span></label>
                  <Field type="text" className="form-control" name="payRate"/>
                  <ErrorMessage
                      name="payRate"
@@ -237,7 +237,7 @@ export function UpdateEmployee() {
                  ></ErrorMessage>
                </div>
                <div className=" flex flex-col gap-y-1 ">
-                 <label className="form-label flex gap-2">vacation Days <span className="text-red-500">*</span></label>
+                 <label className="form-label flex gap-2">Vacation Days <span className="text-red-500">*</span></label>
                  <Field
                      type="number"
                      className="form-control"
@@ -325,7 +325,7 @@ export function UpdateEmployee() {
                  ></ErrorMessage>
                </div>
                <div className=" flex flex-col gap-y-1 ">
-                 <label className="form-label flex gap-2">Address 2<span className="text-red-500">*</span></label>
+                 <label className="form-label flex gap-2">Address 2</label>
                  <Field type="text" className="form-control" name="address2"/>
                </div>
                <div className=" flex flex-col gap-y-1 ">
@@ -553,11 +553,11 @@ export function UpdateEmployee() {
                    <></>
                ) : (
                    <div className="flex justify-between p-2 items-end ">
-                    <a href="/employee"  className="rounded px-[11px] py-[7px] bg-red-400 hover:scale-110 hover:bg-red-200 hover:border-red-700 hover-border-2 ">
-                       cancel
+                    <a href="/employee"  className="rounded px-[11px] py-[7px] bg-red-400 hover:scale-110 hover:bg-red-300 hover:border-red-700 hover-border-2 text-white">
+                       Cancel
                      </a>
                      <button type="submit" className="btn btn-primary hover:scale-110 ">
-                       update
+                       Update
                      </button>
                    </div>
                )}

@@ -33,7 +33,8 @@ function PersonFilterButtons() {
             filteredData.reduce((total, employee) => total + (employee.benefitPlans ? employee.benefitPlans.deductable : 0), 0) / filteredData.length :
             0;
         console.log(totalEarnings, totalVacationDays, averageBenefits);
-        const transactions = filteredData.map(employee => ({
+        const comparisons = filteredData.map(employee => ({
+            firstName: employee.firstName,
             name: employee.name,
             payAmount: employee.payRates ? employee.payRates.payAmount : 0,
             deductable: employee.benefitPlans ? employee.benefitPlans.deductable : 0
@@ -43,7 +44,7 @@ function PersonFilterButtons() {
             totalEarnings,
             totalVacationDays,
             averageBenefits,
-            transactions
+            comparisons
         }));
     };
 

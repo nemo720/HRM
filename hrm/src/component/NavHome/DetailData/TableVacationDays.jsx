@@ -18,8 +18,8 @@ const TableVacationDays = () => {
     const columns = [
         columnHelper.accessor('idEmployee', {
             id: 'id',
-            header: () => <span>Employee Number</span>,
-            cell: info => <p>{info.getValue()}</p>,
+            header: () => <span>Employee No.</span>,
+            cell: info => <p>{info.getValue() === 0 ? "Shareholder" : info.getValue()}</p>,
         }),
         columnHelper.accessor('firstName', {
             cell: info => <p>{info.getValue()}</p>,

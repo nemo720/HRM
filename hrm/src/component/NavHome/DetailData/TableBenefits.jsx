@@ -19,7 +19,7 @@ const TableBenefits = () => {
         columnHelper.accessor('idEmployee', {
             id: 'id',
             header: () => <span>Employee Number</span>,
-            cell: info => <p>{info.getValue() === 0 ? null : info.getValue()}</p>,
+            cell: info => <p>{info.getValue() === 0 ? "Shareholder" : info.getValue()}</p>,
         }),
         columnHelper.accessor('firstName', {
             cell: info => <p>{info.getValue()}</p>,
