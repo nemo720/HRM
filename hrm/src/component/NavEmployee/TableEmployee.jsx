@@ -44,9 +44,9 @@ const TableEmployee = () => {
   };
   const columnHelper = createColumnHelper();
   const columns = [
-    columnHelper.accessor('idEmployee', {
+    columnHelper.accessor('id', {
       id: 'id',
-      header: () => <span>Employee Number</span>,
+      header: () => <span>ID</span>,
       cell: info => <p>{info.getValue()}</p>,
     }),
     columnHelper.accessor('firstName', {

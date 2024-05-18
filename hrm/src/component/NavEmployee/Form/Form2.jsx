@@ -8,30 +8,12 @@ export const  Form2 =({ formData, setFormData, payRates ,benefitPlans}) => {
   if(!(typeof formData.benefitPlans === 'string')){
     formData = {...formData, benefitPlans: JSON.stringify(benefitPlans[0])}
   }
-  const handleChange = (e) => {
-    if (e.target) {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    } else {
-      console.error('Event target is undefined');
-    }
-  };
-  // const { id } = useParams();
-  // let employee;
-  // if (id) {
-  //   employee = getEmployee(id);
-  // }
-  // function pageTitle(){
-  //   if (employee){
-  //     return <h1 className="text-xl  text-[#237395] ml-6">Edit Employee</h1>
-  //   }
-  //   return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>
-  // }
   const validateSchema = {
+      idEmployee: Yup.string().required(),
     ssnP: Yup.string().required(),
-    ssnE: Yup.number().required(),
-    paidToDate: Yup.number().required(),
-    paidLastYear: Yup.number().required(),
-    vacationDays: Yup.string().required(),
+    ssnE: Yup.string().required().max(10, "không được quá 10 số"),
+    paidToDate: Yup.string().required().max(2, "không được quá 2 số"),
+    paidLastYear: Yup.string().required().max(2, "không được quá 2 số"),
     city: Yup.string().required(),
     country: Yup.string().required(),
     zip: Yup.number().required(),
@@ -44,8 +26,6 @@ export const  Form2 =({ formData, setFormData, payRates ,benefitPlans}) => {
           <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>
         </div>
         <Formik initialValues={formData} onSubmit={(values,{setSubmitting}) => {
-          console.log("test")
-          console.log(values)
           setFormData({...values, form: 3 });
           setSubmitting(false);
         }} validationSchema={Yup.object(validateSchema)}>
@@ -58,17 +38,17 @@ export const  Form2 =({ formData, setFormData, payRates ,benefitPlans}) => {
                         {/* First Column */}
                         <div className="flex flex-col justify-center items-center">
                           <label htmlFor="ssnP" className="flex  mb-2 w-[80%] gap-1">
-                            ssnP <p className="text-red-600">*</p>
+                            Social Security Number <p className="text-red-600">*</p>
                           </label>
-                          <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="ssnP" placeholder="ssnP"/>
+                          <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="ssnP" placeholder="Social Security Number"/>
                           <ErrorMessage name="ssnP" component="span" style={{color: "red"}}></ErrorMessage>
                         </div>
                         <div className="flex flex-col justify-center items-center">
                           <label htmlFor="ssnE" className="flex  mb-2 w-[80%] gap-1">
                             {" "}
-                            ssnE <p className="text-red-600">*</p>
+                            SSN <p className="text-red-600">*</p>
                           </label>
-                          <Field type="number" className="w-[80%] border rounded-md px-3 py-2" name="ssnE" placeholder="ssnE"/>
+                          <Field type="number" className="w-[80%] border rounded-md px-3 py-2" name="ssnE" placeholder="SSN"/>
                           <ErrorMessage name="ssnE" component="span" style={{color: "red"}}></ErrorMessage>
                         </div>
                         <div className="flex flex-col justify-center items-center">
@@ -113,16 +93,14 @@ export const  Form2 =({ formData, setFormData, payRates ,benefitPlans}) => {
                           <Field type="number" className="w-[80%] border rounded-md px-3 py-2" name="zip" placeholder="Zip"/>
                           <ErrorMessage name="zip" component="span" style={{color: "red"}}></ErrorMessage>
                         </div>
-                        <div className="flex flex-col justify-center items-center">
-                          <label
-                              htmlFor="vacation-days"
-                              className="flex  mb-2 w-[80%] gap-1"
-                          >
-                            Vacation Days <p className="text-red-600">*</p>
-                          </label>
-                          <Field type="number" className="w-[80%] border rounded-md px-3 py-2" name="vacationDays" placeholder="Vacation Days"/>
-                          <ErrorMessage name="vacationDays" component="span" style={{color: "red"}}></ErrorMessage>
-                        </div>
+                          <div className="flex flex-col justify-center items-center">
+                              <label htmlFor="id-employee" className="flex  mb-2 w-[80%] gap-1">
+                                  {" "}
+                                  Id Employee <p className="text-red-600">*</p>
+                              </label>
+                              <Field type="number" className="w-[80%] border rounded-md px-3 py-2" name="idEmployee" placeholder="Id Employee"/>
+                              <ErrorMessage name="idEmployee" component="span" style={{color: "red"}}></ErrorMessage>
+                          </div>
                         <div className="flex flex-col justify-center items-center">
                           <label htmlFor="payrate" className="flex  mb-2 w-[80%] gap-1">
                             Pay rate <p className="text-red-600">*</p>
@@ -132,7 +110,7 @@ export const  Form2 =({ formData, setFormData, payRates ,benefitPlans}) => {
                         </div>
                         <div className="flex flex-col justify-center items-center">
                           <label htmlFor="iD-payRate" className="flex  mb-2 w-[80%] gap-1">
-                            ID PayRate <p className="text-red-600">*</p>
+                            PayRates <p className="text-red-600">*</p>
                           </label>
                           <Field as="select"
                                  name="payRates"
@@ -150,7 +128,7 @@ export const  Form2 =({ formData, setFormData, payRates ,benefitPlans}) => {
                               htmlFor="benefit-planId"
                               className="flex  mb-2 w-[80%] gap-1"
                           >
-                            Benefit PlanId <p className="text-red-600">*</p>
+                            Benefit Plans <p className="text-red-600">*</p>
                           </label>
                           <Field as="select"
                                  name="benefitPlans"
@@ -181,22 +159,6 @@ export const  Form2 =({ formData, setFormData, payRates ,benefitPlans}) => {
                           }
                         </div>
                       </div>
-                      {/* <div className="right-10 w-full pr-10 flex h-10 mt-10 justify-end gap-16">
-              <button
-                type="button"
-                onClick={() => setFormData({ ...formData, form: 1 })}
-                className=" w-28 px-4 py-2 bg-[#CBE4EF] rounded-md active:bg-red-50 transition duration-150 ease-linear"
-              >
-                Return
-              </button>
-              <button
-                type="button"
-                onClick={() => setFormData({ ...formData, form: 3 })}
-                className=" w-28  px-4 py-2 bg-[#CBE4EF] rounded-md active:bg-red-50 transition duration-150 ease-linear"
-              >
-                Continute
-              </button>
-            </div> */}
                     </div>
                   </div>
                 </Form>

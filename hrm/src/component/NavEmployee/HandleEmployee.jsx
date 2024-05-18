@@ -4,8 +4,10 @@ import Form2 from "./Form/Form2";
 import Form3 from "./Form/Form3";
 import {toast} from "react-toastify";
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 export const HandleEmployee = () => {
+    const navigate = useNavigate();
     const [payRates,setPayRates] = useState("");
     const [benefitPlans,setBenefitPlans] = useState("");
     const [formData, setFormData] = useState({
@@ -80,6 +82,21 @@ export const HandleEmployee = () => {
         }
     }
 
+    const create = async (formData) => {
+        console.log("hello form data")
+        console.log(formData)
+        try {
+            await axios.post("http://localhost:8080/api/personal/create", formData);
+            navigate("/employee")
+            toast("Create employee successful!",{
+                position: "top-center",
+                autoClose: 2000
+            })
+        }catch (e){
+            console.log(e);
+        }
+    };
+
     return (
         <div className="w-full h-full flex flex-col ">
             {formData.form === 1 ? (
@@ -87,25 +104,10 @@ export const HandleEmployee = () => {
             ) : formData.form === 2 ? (
                 <Form2 formData={formData} setFormData={setFormData} payRates={payRates} benefitPlans={benefitPlans}/>
             ) : (
-                <Form3 formData={formData} setFormData={setFormData} />
+                <Form3 formData={formData} setFormData={setFormData} create={create} />
             )}
         </div>
     );
 };
-export const create = async (formData) => {
-    console.log("hello form data")
-    console.log(formData)
-    try {
-        await axios.post("http://localhost:8080/api/personal/create", formData);
-        toast("Create employee successful!",{
-            position: "top-center",
-            autoClose: 2000
-        })
-        setTimeout(() => {
-            window.location.href = "/employee";
-        }, 2500);
-    }catch (e){
-        console.log(e);
-    }
-};
+
 export default HandleEmployee;

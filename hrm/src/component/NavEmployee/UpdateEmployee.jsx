@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import moment from "moment";
 
 export function UpdateEmployee() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [payRates, setPayRates] = useState();
   const [benefitPlans, setBenefitPlans] = useState();
@@ -111,6 +112,8 @@ export function UpdateEmployee() {
         birthday: birthday,
         payRates: JSON.stringify(temp.data.payRates),
         benefitPlans: JSON.stringify(temp.data.benefitPlans),
+        gender: temp.data.gender ? "true" : "false",
+        shareholderStatus: temp.data.shareholderStatus ? "true" : "false"
       });
     } catch (e) {
       console.log(e);
@@ -146,9 +149,7 @@ export function UpdateEmployee() {
         "http://localhost:8080/api/personal/update/" + values.id,
         values
       );
-      setTimeout(() => {
-        window.location.href = "/employee";
-      }, 2500);
+      navigate("/employee")
       toast("Update employee successful!", {
         position: "top-center",
         autoClose: 2000,
@@ -157,9 +158,8 @@ export function UpdateEmployee() {
       console.log(e);
     }
   };
-  if (!payRates || !benefitPlans) return null;
 
-  console.log(employee);
+  if (!payRates || !benefitPlans) return null;
 
   return employee.firstName !== "" ? (
     <div className="flex flex-col h-full">
@@ -363,7 +363,6 @@ export function UpdateEmployee() {
                        type="radio"
                        name="gender"
                        value="true"
-                       checked={employee.gender === true}
                    />
                    Male
                  </label>
@@ -372,7 +371,6 @@ export function UpdateEmployee() {
                        type="radio"
                        name="gender"
                        value="false"
-                       checked={employee.gender === false}
                    />
                    Female
                  </label>
@@ -431,7 +429,6 @@ export function UpdateEmployee() {
                        type="radio"
                        name="shareholderStatus"
                        value="true"
-                       checked={employee.shareholderStatus === true}
                    />
                    Yes
                  </label>
@@ -440,7 +437,6 @@ export function UpdateEmployee() {
                        type="radio"
                        name="shareholderStatus"
                        value="false"
-                       checked={employee.shareholderStatus === false}
                    />
                    No
                  </label>

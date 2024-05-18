@@ -1,30 +1,8 @@
-import { getEmployee } from "@/services/EmployeeService";
-import { useParams } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 export const Form1 = ({ formData, setFormData }) => {
-  const handleChange = (e) => {
-    if (e.target) {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    } else {
-      console.error('Event target is undefined');
-    }
-  };
-  // const { id } = useParams();
-  // let employee;
-  // if (id) {
-  //   employee = getEmployee(id);
-  // }
-  //
-  // function pageTitle() {
-  //   if (employee) {
-  //     return <h1 className="text-xl  text-[#237395] ml-6">Edit Employee</h1>;
-  //   }
-  //   return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>;
-  // }
   const validateSchema = {
-    idEmployee: Yup.string().required(),
     firstName: Yup.string().required(),
     lastName: Yup.string().required(),
     address1: Yup.string().required(),
@@ -32,6 +10,7 @@ export const Form1 = ({ formData, setFormData }) => {
     birthday: Yup.date().required(),
     email: Yup.string().email().required(),
     ethnicity: Yup.string().required(),
+      middleInitial: Yup.string().required(),
   }
   return (
       <div className="w-full h-full flex flex-col ">
@@ -64,14 +43,16 @@ export const Form1 = ({ formData, setFormData }) => {
                           <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="lastName" placeholder="Last Name"/>
                           <ErrorMessage name="lastName" component="span" style={{color: "red"}}></ErrorMessage>
                         </div>
-                        <div className="flex flex-col justify-center items-center">
-                          <label htmlFor="id-employee" className="flex  mb-2 w-[80%] gap-1">
-                            {" "}
-                            Employee Number <p className="text-red-600">*</p>
-                          </label>
-                          <Field type="number" className="w-[80%] border rounded-md px-3 py-2" name="idEmployee" placeholder="Employee Number"/>
-                          <ErrorMessage name="idEmployee" component="span" style={{color: "red"}}></ErrorMessage>
-                        </div>
+                          <div className="flex flex-col justify-center items-center">
+                              <label
+                                  htmlFor="middle-initial"
+                                  className="flex  mb-2 w-[80%] gap-1"
+                              >
+                                  Middle Name <p className="text-red-600">*</p>
+                              </label>
+                              <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="middleInitial" placeholder="Middle Name"/>
+                              <ErrorMessage name="middleInitial" component="span" style={{color: "red"}}></ErrorMessage>
+                          </div>
                         <div className="flex flex-col justify-center items-center">
                           <label htmlFor="address1" className="flex  mb-2 w-[80%] gap-1">
                             {" "}

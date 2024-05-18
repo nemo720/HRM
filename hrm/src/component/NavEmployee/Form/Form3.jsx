@@ -1,53 +1,28 @@
-import { create } from "../HandleEmployee.jsx";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-export const Form3 = ({ formData, setFormData }) => {
-  const handleChange = (e) => {
-    if (e.target) {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    } else {
-      console.error('Event target is undefined');
-    }
-  };
-  // const { id } = useParams();
-  // let employee;
-  // if (id) {
-  //   employee = getEmployee(id);
-  // }
-  // function pageTitle(){
-  //   if (employee){
-  //     return <h1 className="text-xl  text-[#237395] ml-6">Edit Employee</h1>
-  //   }
-  //   return <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>
-  // }
+export const Form3 = ({ formData, setFormData, create }) => {
   const handleSubmit = (formData) => {
     const obj = {
       ...formData,
       payRates: formData.payRates ? JSON.parse(formData.payRates) : {},
       benefitPlans: formData.benefitPlans ? JSON.parse(formData.benefitPlans) : {}
     }
-    console.log("hi")
-    console.log(obj)
     if('form' in obj){
       delete obj.form;
     }
+    console.log("hi")
+    console.log(obj)
+    console.log("formData")
+    console.log(formData)
     create(obj)
         .then(r => console.log(r))
         .catch(err => console.log(err));
   };
 
   const validateSchema = {
-    middleInitial: Yup.number().required(),
+    vacationDays: Yup.string().required(),
     driversLicense: Yup.string().required(),
-    employmentCode: Yup.number().required(),
-    employmentStatus: Yup.string().required(),
-    hireDateForWorking: Yup.date().required(),
-    workersCompCode: Yup.string().required(),
-    terminationDate: Yup.date().required(),
-    rehireDateForWorking: Yup.date().required(),
-    lastReviewDate: Yup.date().required(),
-    daysWorkingPerMonth: Yup.number().required(),
   }
   return (
       <div className="w-full h-full flex flex-col ">
@@ -55,8 +30,6 @@ export const Form3 = ({ formData, setFormData }) => {
           <h1 className="text-xl  text-[#237395] ml-6">Add new Employee</h1>
         </div>
         <Formik initialValues={formData} onSubmit={(values,{setSubmitting}) => {
-          console.log("1")
-          console.log(values)
           setFormData(values);
           handleSubmit(values);
           setSubmitting(false);
@@ -67,16 +40,15 @@ export const Form3 = ({ formData, setFormData }) => {
                   <div className="w-full flex flex-[9] justify-center items-center">
                     <div className="w-[90%] h-full   ">
                       <div className="grid grid-cols-2 gap-7 ">
-                        {/* First Column */}
                         <div className="flex flex-col justify-center items-center">
                           <label
-                              htmlFor="middle-initial"
+                              htmlFor="vacation-days"
                               className="flex  mb-2 w-[80%] gap-1"
                           >
-                            Middle Initial <p className="text-red-600">*</p>
+                            Vacation Days <p className="text-red-600">*</p>
                           </label>
-                          <Field type="text" className="w-[80%] border rounded-md px-3 py-2" name="middleInitial" placeholder="Middle Initial"/>
-                          <ErrorMessage name="middleInitial" component="span" style={{color: "red"}}></ErrorMessage>
+                          <Field type="number" className="w-[80%] border rounded-md px-3 py-2" name="vacationDays" placeholder="Vacation Days"/>
+                          <ErrorMessage name="vacationDays" component="span" style={{color: "red"}}></ErrorMessage>
                         </div>
                         <div className="flex flex-col justify-center items-center">
                           <label

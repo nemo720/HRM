@@ -16,10 +16,10 @@ const TableBenefits = () => {
     const columnHelper = createColumnHelper();
 
     const columns = [
-        columnHelper.accessor('idEmployee', {
+        columnHelper.accessor('id', {
             id: 'id',
-            header: () => <span>Employee Number</span>,
-            cell: info => <p>{info.getValue() === 0 ? "Shareholder" : info.getValue()}</p>,
+            header: () => <span>ID</span>,
+            cell: info => <p>{info.getValue()}</p>,
         }),
         columnHelper.accessor('firstName', {
             cell: info => <p>{info.getValue()}</p>,
@@ -28,6 +28,10 @@ const TableBenefits = () => {
         columnHelper.accessor('lastName', {
             cell: info => <p>{info.getValue()}</p>,
             header: () => <span>Last Name</span>
+        }),
+        columnHelper.accessor('shareholderStatus', {
+            cell: info => <p>{info.getValue() === true ? 'Shareholder' : 'Employee'}</p>,
+            header: () => <span>Shareholder Status</span>
         }),
         columnHelper.accessor("benefitPlans.deductable", {
             cell: info => <p>{'$' + info.getValue()}</p>,

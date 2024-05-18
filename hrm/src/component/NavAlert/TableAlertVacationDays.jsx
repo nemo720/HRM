@@ -16,9 +16,9 @@ const TableVacationDays = () => {
     const columnHelper = createColumnHelper();
 
     const columns = [
-        columnHelper.accessor('idEmployee', {
+        columnHelper.accessor('employeeNumber', {
             id: 'id',
-            header: () => <span>Employee Number</span>,
+            header: () => <span>ID</span>,
             cell: info => <p>{info.getValue()}</p>,
         }),
         columnHelper.accessor('firstName', {
@@ -28,6 +28,10 @@ const TableVacationDays = () => {
         columnHelper.accessor('lastName', {
             cell: info => <p>{info.getValue()}</p>,
             header: () => <span>Last Name</span>
+        }),
+        columnHelper.accessor('shareholderStatus', {
+            cell: info => <p>{info.getValue() === true ? 'Shareholder' : 'Employee'}</p>,
+            header: () => <span>Shareholder Status</span>
         }),
         columnHelper.accessor('vacationDays', {
             cell: info => <p>{info.getValue()}</p>,
@@ -42,15 +46,7 @@ const TableVacationDays = () => {
         }).catch((error) => {
             console.log("Fetching data failed:", error);
         })
-    }, []);/*useEffect(() => {
-        listVacationDay().then((response) => {
-            // Lọc ra những nhân viên có số ngày nghỉ lớn hơn 15
-            const filteredData = response.data.filter(employee => employee.vacationDays > 15);
-            setData(filteredData);
-        }).catch((error) => {
-            console.log(error);
-        })
-    }, []);*/
+    }, []);
 
 
     const [globalFilter, setGlobalFilter] = useState("");

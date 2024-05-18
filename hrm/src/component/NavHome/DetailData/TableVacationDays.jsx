@@ -16,10 +16,10 @@ const TableVacationDays = () => {
     const columnHelper = createColumnHelper();
 
     const columns = [
-        columnHelper.accessor('idEmployee', {
+        columnHelper.accessor('id', {
             id: 'id',
-            header: () => <span>Employee No.</span>,
-            cell: info => <p>{info.getValue() === 0 ? "Shareholder" : info.getValue()}</p>,
+            header: () => <span>ID</span>,
+            cell: info => <p>{info.getValue()}</p>,
         }),
         columnHelper.accessor('firstName', {
             cell: info => <p>{info.getValue()}</p>,
@@ -29,29 +29,32 @@ const TableVacationDays = () => {
             cell: info => <p>{info.getValue()}</p>,
             header: () => <span>Last Name</span>
         }),
+        columnHelper.accessor('shareholderStatus', {
+            cell: info => <p>{info.getValue() === true ? 'Shareholder' : 'Employee'}</p>,
+            header: () => <span>Shareholder Status</span>
+        }),
         columnHelper.accessor('vacationDays', {
             cell: info => <p>{info.getValue()}</p>,
             header: () => <span>Days Rest</span>
         })
     ];
     const [data, setData] = useState(() => []);
-    /*useEffect(() => {
+    useEffect(() => {
         listEmployees().then((response) => {
             console.log(response.data);
             setData(response.data);
         }).catch((error) => {
             console.log("Fetching data failed:", error);
         })
-    }, []);*/
-    useEffect(() => {
-        listEmployees().then((response) => {
-            // Lọc ra những nhân viên có số ngày nghỉ lớn hơn 15
-            const filteredData = response.data.filter(employee => employee.vacationDays !== 0);
-            setData(filteredData);
-        }).catch((error) => {
-            console.log(error);
-        })
     }, []);
+    // useEffect(() => {
+    //     listEmployees().then((response) => {
+    //         const filteredData = response.data;
+    //         setData(filteredData);
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     })
+    // }, []);
 
     const [globalFilter, setGlobalFilter] = useState("");
     const [sorting, setSorting] = useState([]);
