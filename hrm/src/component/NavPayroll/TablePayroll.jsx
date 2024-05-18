@@ -145,7 +145,7 @@ const TablePayroll = () => {
         });
   }, [selectedEmpStatus, selectedEthnicity]);
   return (
-    <div className="p-1 max-w-6xl mx-auto text-black">
+    <div className="p-1 max-w-6xl mx-3 text-black">
       <div className="flex justify-between mb-2 flex-row-reverse ">
         <div className="w-full flex items-center gap-1 justify-end">
           <SearchIcon />

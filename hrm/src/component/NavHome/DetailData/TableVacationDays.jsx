@@ -47,14 +47,6 @@ const TableVacationDays = () => {
             console.log("Fetching data failed:", error);
         })
     }, []);
-    // useEffect(() => {
-    //     listEmployees().then((response) => {
-    //         const filteredData = response.data;
-    //         setData(filteredData);
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     })
-    // }, []);
 
     const [globalFilter, setGlobalFilter] = useState("");
     const [sorting, setSorting] = useState([]);

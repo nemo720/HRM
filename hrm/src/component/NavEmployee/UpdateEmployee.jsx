@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -549,16 +549,17 @@ export function UpdateEmployee() {
                    <></>
                ) : (
                    <div className="flex justify-between p-2 items-end ">
-                    <a href="/employee"  className="rounded px-[11px] py-[7px] bg-red-400 hover:scale-110 hover:bg-red-300 hover:border-red-700 hover-border-2 text-white">
+                     <Link
+                         to="/employee"
+                         className="rounded px-[11px] py-[7px] bg-red-400 hover:scale-110 hover:bg-red-300 hover:border-red-700 hover-border-2 text-white"
+                     >
                        Cancel
-                     </a>
+                     </Link>
                      <button type="submit" className="btn btn-primary hover:scale-110 ">
                        Update
                      </button>
                    </div>
                )}
-
-
              </Form>
          )}
        </Formik>

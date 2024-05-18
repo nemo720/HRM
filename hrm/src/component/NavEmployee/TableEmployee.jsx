@@ -7,7 +7,7 @@ import {
   useReactTable,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import DebouncedInput from "./DebouncedInput.jsx";
 import { SearchIcon } from "../Icons.jsx";
 import {useEffect, useState} from "react";
@@ -140,7 +140,7 @@ const TableEmployee = () => {
       getPaginationRowModel: getPaginationRowModel(),
     });
     return (
-        <div className="p-1 max-w-6xl mx-auto text-black ">
+        <div className="p-1 max-w-6xl mx-3 text-black ">
           <div className="flex justify-between mb-2 flex-row-reverse">
             <div className="w-full flex items-center gap-1 justify-end">
               <SearchIcon/>
@@ -152,12 +152,15 @@ const TableEmployee = () => {
               />
             </div>
             <div className="flex gap-4">
-              <a href="/handleEmployee"
-                 className="w-auto h-full fex  justify-center rounded-md bg-blue-300 px-2 py-1 hover:transition hover:scale-110 hover:bg-slate-200 hover:border-blue-200 hover:border active:bg-red-200 duration-150">Create</a>
+              <Link
+                  to="/handleEmployee"
+                  className="w-auto h-full fex  justify-center rounded-md bg-blue-300 px-2 py-1 hover:transition hover:scale-110 hover:bg-slate-200 hover:border-blue-200 hover:border active:bg-red-200 duration-150">
+                Create
+              </Link>
               <select
                   id="sort-gender"
-                  name="sortGender" // Add the name attribute to match the state key
-                  value={selectedValue} // Set the selected value based on formData
+                  name="sortGender"
+                  value={selectedValue}
                   onChange={handleFilter}
                   className=" w-auto  rounded-md  px-3 py-2 border justify-items-center "
               >
