@@ -24,7 +24,7 @@ export const Form1 = ({ formData, setFormData }) => {
           {
             ({isSubmitting}) => (
                 <Form>
-                  <div className="w-full flex flex-[9] justify-center items-center">
+                  <div className="w-full flex flex-[9] justify-center items-center h-full pb-5 pt-2">
                     <div className="w-[90%] h-full relative">
                       <div className="grid grid-cols-2 gap-7 ">
                         {/* First Column */}

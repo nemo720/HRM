@@ -108,9 +108,9 @@ const TableEmployee = () => {
     listEmployees().then((response) => {
       let filteredData;
       if (e.target.value === 'male')
-        filteredData = response.data.filter(employee => employee.gender === true);
+        filteredData = response.data.filter(employee => employee.gender === true && employee.idEmployee !== 0 );
       else if (e.target.value === 'female')
-        filteredData = response.data.filter(employee => employee.gender === false);
+        filteredData = response.data.filter(employee => employee.gender === false && employee.idEmployee !== 0);
       else findAll()
       setData(filteredData);
     }).catch((error) => {

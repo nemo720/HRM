@@ -67,7 +67,6 @@ export const HandleEmployee = () => {
         try {
             let temp = await axios.get("http://localhost:8080/api/payRates/list");
             setPayRates(temp.data);
-            console.log(temp.data);
         }catch (e){
             console.log(e);
         }
@@ -76,15 +75,13 @@ export const HandleEmployee = () => {
         try {
             let temp = await axios.get("http://localhost:8080/api/benefitPlans/list");
             setBenefitPlans(temp.data);
-            console.log(temp.data);
         }catch (e){
             console.log(e);
         }
     }
 
     const create = async (formData) => {
-        console.log("hello form data")
-        console.log(formData)
+
         try {
             await axios.post("http://localhost:8080/api/personal/create", formData);
             navigate("/employee")
@@ -98,7 +95,7 @@ export const HandleEmployee = () => {
     };
 
     return (
-        <div className="w-full h-full flex flex-col ">
+        <div className="w-full h-full flex flex-col  ">
             {formData.form === 1 ? (
                 <Form1 formData={formData} setFormData={setFormData} />
             ) : formData.form === 2 ? (
