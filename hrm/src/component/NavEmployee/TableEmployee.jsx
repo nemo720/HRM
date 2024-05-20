@@ -67,6 +67,10 @@ const TableEmployee = () => {
       cell: (info) => <p>{info.getValue() === true ? "Male" : "Female"}</p>,
       header: () => <span>Gender</span>,
     }),
+    columnHelper.accessor('shareholderStatus', {
+      cell: info => <p>{info.getValue() === true ? 'Shareholder' : 'Employee'}</p>,
+      header: () => <span>Shareholder Status</span>
+    }),
     columnHelper.accessor("daysWorkingPerMonth", {
       cell: (info) => <p>{info.getValue()}</p>,
       header: () => <span>Days Working in month</span>,
@@ -92,44 +96,75 @@ const TableEmployee = () => {
     }),
   ];
   const [data, setData] = useState(() => []);
-  const [selectedValue, setSelectedValue] = useState(null);
   useEffect(() => {
     findAll();
   }, []);
   const findAll = () => {
     listEmployees()
       .then((response) => {
-        // Lọc ra những người không phải là nhân viên
-        const filteredData = response.data.filter(
-          (employee) => employee.idEmployee !== 0
-        );
+        const filteredData = response.data;
         setData(filteredData);
       })
       .catch((error) => {
         console.log("Fetching data failed:", error);
       });
   };
-  const handleFilter = (e) => {
-    setSelectedValue(e.target.value);
+  const [selectedGender, setSelectedGender] = useState(null);
+  const [selectedRole, setSelectedRole] = useState('employee');
+  const handleFilterGender = (e) => {
+    setSelectedGender(e.target.value);
+    listEmployees().then((response) => {
+      let filteredData = response.data;
+      if (e.target.value === 'male')
+        filteredData = filteredData.filter(
+            (employee) => employee.gender === true && employee.idEmployee !== 0)
+      else if (e.target.value === 'female')
+        filteredData = filteredData.filter(
+            (employee) => employee.gender === true && employee.idEmployee !== 0)
+      else findAll()
+      setData(filteredData);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+  const handleFilterRole = (e) => {
+    setSelectedRole(e.target.value);
+    listEmployees().then((response) => {
+      let filteredData = response.data;
+      if (e.target.value === 'employee')
+        filteredData = filteredData.filter((employee) => employee.shareholderStatus === false)
+      else if (e.target.value === 'shareholder')
+        filteredData = filteredData.filter((employee) => employee.shareholderStatus === true)
+      else findAll()
+      setData(filteredData);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+  useEffect(() => {
     listEmployees()
-      .then((response) => {
-        let filteredData;
-        if (e.target.value === "male")
-          filteredData = response.data.filter(
-            (employee) => employee.gender === true && employee.idEmployee !== 0
-          );
-        else if (e.target.value === "female")
-          filteredData = response.data.filter(
-            (employee) => employee.gender === false && employee.idEmployee !== 0
-          );
-        else findAll();
-        setData(filteredData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+        .then((response) => {
+          let filteredData = response.data;
+          if (selectedGender) {
+            filteredData = filteredData.filter((employee) =>
+                selectedGender === 'male' ? employee.gender === true
+                    : selectedGender === 'female' ? employee.gender === false
+                        : true
+            );
+          }
+          if (selectedRole) {
+            filteredData = filteredData.filter((employee) =>
+                selectedRole === 'employee' ? employee.shareholderStatus === false
+                    : selectedRole === 'shareholder' ? employee.shareholderStatus === true
+                            : true
+            );
+          }
+          setData(filteredData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }, [selectedGender, selectedRole]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
 
@@ -173,8 +208,8 @@ const TableEmployee = () => {
           <select
             id="sort-gender"
             name="sortGender"
-            value={selectedValue}
-            onChange={handleFilter}
+            value={selectedGender}
+            onChange={handleFilterGender}
             className=" w-auto  rounded-md  px-3 py-2 border justify-items-center "
           >
             <option value="" disabled selected>
@@ -187,16 +222,16 @@ const TableEmployee = () => {
           <select
             id="filter-role"
             name="filterRole"
-            value={selectedValue}
-            onChange={handleFilter}
+            value={selectedRole}
+            onChange={handleFilterRole}
             className=" w-auto  rounded-md  px-3 py-2 border justify-items-center "
           >
             <option value="" disabled selected>
               Filter by Role
             </option>
             <option value="all">All</option>
-            <option value="male">Employee</option>
-            <option value="female">Shareholder</option>
+            <option value="employee">Employee</option>
+            <option value="shareholder">Shareholder</option>
           </select>
         </div>
       </div>
