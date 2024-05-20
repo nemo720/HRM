@@ -167,8 +167,8 @@ const TablePayroll = () => {
           >
             <option value="sortEmpStatus" disabled selected>Filter by Emp Status</option>
             <option value="All">All</option>
-            <option value="fullTime">Sort by full time</option>
-            <option value="partTime">Sort by part time</option>
+            <option value="fullTime">Full time</option>
+            <option value="partTime">Part time</option>
           </select>
           <select
               id="sort-ethnicity"
